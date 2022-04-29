@@ -1,11 +1,10 @@
 import React from 'react';
-const Mainpage = () =>{
+const Faq = () =>{
     return (
         <div>
-            <h3>Mainpage</h3>
+            <h3>FAQ</h3>
         </div>
     );
 }
-export default Mainpage;
-
+export default Faq;
 // Mainpage.js
