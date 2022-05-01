@@ -1,0 +1,46 @@
+.content{
+    width: 100vw;
+    height: 100vh;
+    background: aliceblue;
+    color: black;
+
+}
+
+h1{
+    font-size: 3rem;
+    padding: 50px;
+    text-align: center;
+    color: dimgrey;
+}
+
+p{
+    text-align: center;
+    color: aliceblue;
+}
+
+.parents{
+    width: 80vw;
+    height: auto;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    transition: all 0.2 linear;
+
+}
+.child{
+    /*width: 200px;*/
+    text-align:center;
+    height: 200px;
+    background:dimgrey;
+    flex: 1 1 200px;
+    margin: 20px;
+    box-shadow: 0 0 20px #bac3c3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .content{height: auto;}
+}
