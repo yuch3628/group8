@@ -5,6 +5,8 @@ import logo from "../logo.png";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import './NavBar.css';
 import {FormattedMessage} from "react-intl";
+import lang_logo from '../image/language_logo.png';
+import login_logo from '../image/login_logo.png';
 // import en from "../i18n/en";
 // import se from "../i18n/se";
 // import zh from "../i18n/zh";
@@ -13,7 +15,7 @@ const NavBar= ({setLocale}) =>{
     return (
         <Navbar bg="nav_bg" variant="light" sticky="top" expand="lg">
             <Navbar.Brand>
-                <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="description of image"/></Nav.Link>
+                <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="logo"/></Nav.Link>
             </Navbar.Brand>
             <NavbarToggle/>
             <Navbar.Collapse>
@@ -40,13 +42,22 @@ const NavBar= ({setLocale}) =>{
                     <Nav.Link as={NavLink} to ="/setting">Setting</Nav.Link>
                     <Nav.Link as={NavLink} to ="/challenge">Challenge</Nav.Link>
                     <Nav.Link as={NavLink} to ="/faq">FAQ</Nav.Link>
-                    <NavDropdown title="Language" className="ml-auto">
-                        <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
+                    {/*<NavDropdown title="Language" className="ml-auto">*/}
+                    <Nav.Link as={NavLink} to ="/login" className="ml-auto">
+                        <img src={login_logo} alt="login"className="lang_logo" ></img>
+                    </Nav.Link>
+                    <NavDropdown title={
+                        <span>
+                            <img src={lang_logo} alt="lang" className="lang_logo "/>
+                        </span>} >
+
+                    <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={()=> setLocale('en')}>English</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={()=> setLocale('zh')}>Chinese</NavDropdown.Item>
                     </NavDropdown>
+
                 </Nav>
             </Navbar.Collapse>
 

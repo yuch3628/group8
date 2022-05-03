@@ -11,3 +11,8 @@
     padding: 12px;
     height: 3000px;
 }
+.lang_logo{
+    width:30px;
+    height:30px;
+    object-fit:cover;
+}

@@ -13,6 +13,7 @@ import Learning4 from "./pages/Learning4";
 import Learning5 from "./pages/Learning5";
 import Learning6 from "./pages/Learning6";
 import Faq from "./pages/Faq";
+import Login from "./pages/Login";
 
 export default function Routes(){
     return(
@@ -29,6 +30,7 @@ export default function Routes(){
             <Route path='/learning/lesson5' component={Learning5} />
             <Route path='/learning/lesson6' component={Learning6} />
             <Route path='/faq' component={Faq} />
+            <Route path='/login' component={Login} />
         </Switch>
     )
 }

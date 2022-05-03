@@ -1,8 +1,6 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
-import bg1 from "../image/home_bg1.jpg";
-import bg2 from "../image/home_bg2.jpg";
 import bg3 from "../image/home_bg3.jpg";
 import "./Home.css";
 
