@@ -13,11 +13,11 @@ const NavBar= ({setLocale}) =>{
     return (
         <Navbar bg="nav_bg" variant="light" sticky="top" expand="lg">
             <Navbar.Brand>
-                <Nav.Link as={NavLink} to="/" exact><img src={logo}/></Nav.Link>
+                <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="description of image"/></Nav.Link>
             </Navbar.Brand>
             <NavbarToggle/>
             <Navbar.Collapse>
-                <Nav>
+                <Nav className="container-fluid">
                     <Nav.Link as={NavLink} to ="/about">About Course</Nav.Link>
                     <NavDropdown title="Learning">
                         <NavDropdown.Item as={Link} to ="/learning/alllesson">
@@ -40,18 +40,16 @@ const NavBar= ({setLocale}) =>{
                     <Nav.Link as={NavLink} to ="/setting">Setting</Nav.Link>
                     <Nav.Link as={NavLink} to ="/challenge">Challenge</Nav.Link>
                     <Nav.Link as={NavLink} to ="/faq">FAQ</Nav.Link>
+                    <NavDropdown title="Language" className="ml-auto">
+                        <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item onClick={()=> setLocale('en')}>English</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item onClick={()=> setLocale('zh')}>Chinese</NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
-            <Nav>
-                <NavDropdown title="Language">
-                    <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
-                    <NavDropdown.Divider/>
-                    <NavDropdown.Item onClick={()=> setLocale('en')}>English</NavDropdown.Item>
-                    <NavDropdown.Divider/>
-                    <NavDropdown.Item onClick={()=> setLocale('zh')}>Chinese</NavDropdown.Item>
-                </NavDropdown>
 
-            </Nav>
         </Navbar>
     );
 }

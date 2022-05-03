@@ -4,7 +4,6 @@ import {BrowserRouter as Router} from "react-router-dom";
 import './App.css';
 import NavBar from "../src/component/NavBar";
 import Routes from "./Routes";
-import {FormattedMessage} from "react-intl";
 
 function App({setLocale}) {
     return (
@@ -12,11 +11,11 @@ function App({setLocale}) {
             <div className="App">
             <NavBar setLocale={setLocale}/>
             </div>
-            <div>
-                <FormattedMessage id = "hello"
-                                  defaultMessage="Hello Hej 你好 "
-                                  description="Check website"/>
-            </div>
+            {/*<div>*/}
+            {/*    <FormattedMessage id = "hello"*/}
+            {/*                      defaultMessage="Hello Hej 你好 "*/}
+            {/*                      description="Check website"/>*/}
+            {/*</div>*/}
             <Routes/>
         </Router>
 
