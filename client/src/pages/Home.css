@@ -1,0 +1,53 @@
+.home-bg {
+    height: 100vh;
+    background-size: fill;
+    background-repeat: no-repeat;
+
+    /*background-position: top center;*/
+}
+
+.w-100 {
+    width: 100% !important;
+    height: 95vh;
+}
+
+img{
+    max-height:100%;
+    height:auto;
+}
+
+font{
+    color: black;
+}
+
+.content-box {
+    background-color: rgba(206,196,211,0.2);
+}
+
+
+
+.w-100 {
+    width: 100% !important;
+    height: 95vh;
+}
+
+
+.Home-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+}
+
+/*@media (min-width: 650px ) {*/
+/*    .Home {*/
+/*        background-position: center center;*/
+/*    }*/
+
+/*    .Home-content {*/
+/*        align-items: flex-end;*/
+/*        justify-content: center;*/
+/*    }*/
+/*}*/
