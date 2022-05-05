@@ -8,7 +8,7 @@ const Home = () =>{
     return (
         <div>
             <Carousel fade>
-                <Carousel.Item class="Home-content" >
+                <Carousel.Item class="Home-content" interval={600}>
                     <img class="d-block w-100" src={bg3} alt="First slide"/>
                     <Carousel.Caption>
                         <div className="content-box">
@@ -17,7 +17,7 @@ const Home = () =>{
                         </div>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item >
+                <Carousel.Item class="Home-content" interval={600}>
                     <img class="d-block w-100" src={bg3} alt="Second slide"/>
                     <Carousel.Caption>
                         <div className="content-box">
@@ -26,7 +26,7 @@ const Home = () =>{
                         </div>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item class="Home-content">
+                <Carousel.Item class="Home-content" interval={600}>
                     <img class="d-block w-100" src={bg3} alt="Third slide"/>
                     <Carousel.Caption>
                         <div class="content-box">
