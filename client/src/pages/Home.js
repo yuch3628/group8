@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-
 import bg3 from "../image/home_bg3.jpg";
 import "./Home.css";
+import {icons} from "react-icons";
 
 const Home = () =>{
     return (

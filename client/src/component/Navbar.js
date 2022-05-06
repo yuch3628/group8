@@ -7,6 +7,7 @@ import './NavBar.css';
 import {FormattedMessage} from "react-intl";
 import lang_logo from '../image/language_logo.png';
 import login_logo from '../image/login_logo.png';
+import {GrLanguage} from 'react-icons/gr';
 // import en from "../i18n/en";
 // import se from "../i18n/se";
 // import zh from "../i18n/zh";
@@ -46,10 +47,7 @@ const NavBar= ({setLocale}) =>{
                     <Nav.Link as={NavLink} to ="/login" className="ml-auto">
                         <img src={login_logo} alt="login"className="lang_logo" ></img>
                     </Nav.Link>
-                    <NavDropdown title={
-                        <span>
-                            <img src={lang_logo} alt="lang" className="lang_logo "/>
-                        </span>} >
+                    <NavDropdown title={<GrLanguage/>} >
 
                     <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
                         <NavDropdown.Divider/>
