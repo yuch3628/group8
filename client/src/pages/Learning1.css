@@ -1,0 +1,29 @@
+/*. wordbox-container{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+. filpcard-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+. flip-card{
+    width: 18rem;
+    height: 18rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+.flip-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin : '2rem 0 2rem 0';
+}
+
+.back-card{
+    backgroundColor: '#175852';
+}

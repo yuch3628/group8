@@ -1,0 +1,30 @@
+. filpcard-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+. flip-card{
+    width: 18rem;
+    height: 18rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+. flip-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin : '2rem 0 2rem 0';
+}
+
+. backcard{
+    backgroundColor: '#175852';
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 200px;*/
+}

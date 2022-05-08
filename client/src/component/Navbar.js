@@ -23,11 +23,6 @@ const NavBar= ({setLocale}) =>{
                 <Nav className="container-fluid">
                     <Nav.Link as={NavLink} to ="/about">About Course</Nav.Link>
                     <NavDropdown title="Learning">
-                        <NavDropdown.Item as={Link} to ="/learning/alllesson">
-                            <FormattedMessage id = "alllesson"
-                                              defaultMessage="All Lessons "/>
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson1">Lesson1</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson2">Lesson2</NavDropdown.Item>
@@ -40,7 +35,6 @@ const NavBar= ({setLocale}) =>{
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson6">Lesson6</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link as={NavLink} to ="/setting">Setting</Nav.Link>
                     <Nav.Link as={NavLink} to ="/challenge">Challenge</Nav.Link>
                     <Nav.Link as={NavLink} to ="/faq">FAQ</Nav.Link>
                     {/*<NavDropdown title="Language" className="ml-auto">*/}

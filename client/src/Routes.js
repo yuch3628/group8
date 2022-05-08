@@ -5,7 +5,7 @@ import About from "./pages/About"
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
 import Challenge from "./pages/Challenge";
-import Learning from "./pages/Learning";
+import Learning from "./component/Learning";
 import Learning1 from "./pages/Learning1";
 import Learning2 from "./pages/Learning2";
 import Learning3 from "./pages/Learning3";
@@ -22,7 +22,7 @@ export default function Routes(){
             <Route path='/about' component={About} />
             <Route path='/setting' component={Setting} />
             <Route path='/challenge' component={Challenge} />
-            <Route exact path='/learning/alllesson' component={Learning} />
+            {/*<Route exact path='/learning/alllesson' component={Learning} />*/}
             <Route path='/learning/lesson1' component={Learning1} />
             <Route path='/learning/lesson2' component={Learning2} />
             <Route path='/learning/lesson3' component={Learning3} />

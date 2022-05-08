@@ -1,9 +1,15 @@
 import React from 'react';
+import Card from '../component/Card';
+const test = [{title: 'title', content:'123'}, {title: 'title', content:'123'}, {title: 'title', content:'123'}, {title: 'title', content:'123'}, {title: 'title', content:'123'}, {title: 'title', content:'123'}];
 const Learning1 = () =>{
     return (
-        <div>
-            <h3>This is first class.</h3>
-        </div>
+        <>
+            <div class="row">
+                {test.map(({ title, content }) => (
+                    <Card title={title} content={content} />
+                ))}
+            </div>
+        </>
     );
 }
 export default Learning1;
