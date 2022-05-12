@@ -5,17 +5,25 @@ import './App.css';
 import NavBar from "../src/component/NavBar";
 import Routes from "./Routes";
 
+const getData = () => {
+    fetch('http://localhost:9000/users',{
+        method:'GET',
+        header: new Headers({'Content-Type': 'application/json'})})
+    .then((res) => res.json())
+    .then(data => {
+    //Suc
+        console.log('data', data);
+    }).catch(e =>{
+        //Error
+    });
+}
 function App({setLocale}) {
+    getData();
     return (
         <Router>
             <div className="App">
             <NavBar setLocale={setLocale}/>
             </div>
-            {/*<div>*/}
-            {/*    <FormattedMessage id = "hello"*/}
-            {/*                      defaultMessage="Hello Hej 你好 "*/}
-            {/*                      description="Check website"/>*/}
-            {/*</div>*/}
             <Routes/>
         </Router>
 

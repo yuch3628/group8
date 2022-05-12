@@ -1,16 +1,16 @@
 import { useRef } from 'react';
 import React from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import bg from '../image/home_bg2.jpg';
+// import bg from '../image/home_bg2.jpg';
 import './Card.css';
 
-const Card = (title, content) => {
-    const path = 'example.mp3';
-    const audioUrl = require('../audio/'+path);
+const Card = ({title, content, audio_path, img_path}) => {
+//     const audio_path = 'example.mp3';
+    const audioUrl = require('../audio/'+audio_path);
+    const imageUrl = require('../image/'+img_path);
     const audio = new Audio(audioUrl);
     const start = () => {
         audio.play();
-        console.log('1111');
       };
 
     return (
@@ -32,13 +32,12 @@ const Card = (title, content) => {
                     fontSize: 28,
                     fontWeight: 'bold',
                     borderRadius:  20
-//                     border: '3px solid black'
                 }}>
-                <img src={bg}  style={{ maxWidth: '100%', maxHeight: '100%', borderRadius:  20 }}></img>
+                <img src={imageUrl}  style={{ maxWidth: '100%', maxHeight: '100%', borderRadius:  20 }}></img>
                 <div style={{ textAlign: 'center',
                               textAlignVertical: 'center',
                               lineHeight: '3em'
-                            }}> Milk
+                            }}> {title}
                 </div>
             </FrontSide>
 {/*             <BackSide class = 'back-card' */}
@@ -48,10 +47,10 @@ const Card = (title, content) => {
             <BackSide style={{ backgroundColor: 'lightgrey',
                                borderRadius:  20}}>
                 <div class = 'center' style={{ textAlign: 'center', textAlignVertical: 'center', height:'40vh'}}>
-                    <br/> 牛奶
+                    <br/> {content}
                 </div>
-                <div class="center">
-                    <button onClick={start}>Play</button>
+                    <div class="center">
+                        <button onClick={start}>Play</button>
                 </div>
 
             </BackSide>
