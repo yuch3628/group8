@@ -12,7 +12,7 @@ import Learning3 from "./pages/Learning3";
 import Learning4 from "./pages/Learning4";
 import Learning5 from "./pages/Learning5";
 import Learning6 from "./pages/Learning6";
-import Faq from "./pages/Faq";
+import Faq from "./pages/Faq.js";
 import Login from "./pages/Login";
 
 export default function Routes(){
