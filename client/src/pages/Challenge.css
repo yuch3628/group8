@@ -1,0 +1,59 @@
+html, body, #root{
+	height:100%;
+}
+
+#root{
+	display: flex;
+	flex-direction: column;
+}
+
+.App{
+	flex: 0 1 auto;
+}
+
+.div_prompts, .div_answers{
+	display: flex;
+	flex-direction: column;
+	width:10%;
+  height:100%;
+  background: black;
+  float: left;
+  font-size: initial;
+}
+
+.div_answers{
+  float: right;
+}
+
+canvas.challenge{
+  height: 100%;
+  width: 80%;
+  display: inline-block;
+  border-width: thick;
+  border-style: dotted;
+}
+
+button.square{
+  width: 100%;
+  flex: 1 1 auto;
+}
+
+div.Matching{
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+  text-align: center;
+  font-size: xx-large;
+}
+
+div.matching_title{
+	flex: 0 1 auto;
+}
+
+div.game{
+	flex: 1 1 auto;
+}
+
+div.progress_bar{
+	flex: 0 1 40px;
+}
