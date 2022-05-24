@@ -8,9 +8,6 @@ import {FormattedMessage} from "react-intl";
 import lang_logo from '../image/language_logo.png';
 import login_logo from '../image/login_logo.png';
 import {GrLanguage} from 'react-icons/gr';
-// import en from "../i18n/en";
-// import se from "../i18n/se";
-// import zh from "../i18n/zh";
 
 const NavBar= ({setLocale}) =>{
     return (
