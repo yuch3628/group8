@@ -41,6 +41,20 @@ p{
     align-items: center;
 }
 
-@media (max-width: 768px) {
-    .content{height: auto;}
-}
+/*@media screen and (min-width: 1600px) {*/
+/*    .flip-card {*/
+/*        width: 50vh;*/
+/*        height: 50vh;*/
+/*        margin-left: 15%;*/
+/*        margin-top: 6%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (max-width: 1600px) {*/
+/*    .flip-card {*/
+/*        width: 50vh;*/
+/*        height: 50vh;*/
+/*        margin-left: 30%;*/
+/*        margin-right: 30%;*/
+/*        margin-top: 6%;*/
+/*    }*/

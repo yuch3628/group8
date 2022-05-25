@@ -43,7 +43,7 @@ h3 {
     background-color: gainsboro;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1000px) {
     body {
         font-size: 18px;
     }

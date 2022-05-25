@@ -22,31 +22,14 @@ const Card = ({title, content, audio_path, img_path}) => {
             // ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
             // if you pass isFlipped prop component will be controlled component.
             // and other props, which will go to div
-            style={{ width: '50vh', height: '50vh', marginLeft: '15%', marginTop: '6%' }} /// these are optional style, it is not necessary
+            className='flip-card' /// these are optional style, it is not necessary
         >
-            <FrontSide
-                style={{
-                    backgroundColor: '#41669d',
-                    alignItems: 'center',
-                    flex: 1,
-                    fontSize: 28,
-                    fontWeight: 'bold',
-                    borderRadius:  20
-                }}>
-                <img src={imageUrl}  style={{ maxWidth: '100%', maxHeight: '100%', borderRadius:  20 }}></img>
-                <div style={{ textAlign: 'center',
-                              textAlignVertical: 'center',
-                              lineHeight: '3em'
-                            }}> {title}
-                </div>
+            <FrontSide className='front-side'>
+                <img src={imageUrl}  className='img-card' ></img>
+                <div className='title'> {title}</div>
             </FrontSide>
-{/*             <BackSide class = 'back-card' */}
-{/*                 style={{ backgroundColor: '#175852'}}> */}
-{/*                 Milk */}
-{/*             </BackSide> */}
-            <BackSide style={{ backgroundColor: 'lightgrey',
-                               borderRadius:  20}}>
-                <div class = 'center' style={{ textAlign: 'center', textAlignVertical: 'center', height:'40vh'}}>
+            <BackSide className='back-side'>
+                <div className = 'center content-box'>
                     <br/> {content}
                 </div>
                     <div class="center">
@@ -55,6 +38,7 @@ const Card = ({title, content, audio_path, img_path}) => {
 
             </BackSide>
         </Flippy>
+
     )
 }
 export default Card;

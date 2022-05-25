@@ -1,5 +1,5 @@
 const zh ={
-    "hello":"你好",
+    "lesson1":"課程 1",
     "alllesson":"全部課程"
 }
 

@@ -7,6 +7,10 @@
     object-fit:cover;
 }
 
+.nav_context {
+    color: #eeeeee !important;
+}
+
 .content{
     padding: 12px;
     height: 3000px;
@@ -16,7 +20,9 @@
     height:30px;
     object-fit:cover;
 }
-
+.nav-dropdown{
+    color: #eeeeee;
+}
 @media screen and (min-width: 990px) {
     .ml-auto{
         margin-left: auto!important;

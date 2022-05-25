@@ -11,16 +11,18 @@ import {GrLanguage} from 'react-icons/gr';
 
 const NavBar= ({setLocale}) =>{
     return (
-        <Navbar bg="nav_bg" variant="light" sticky="top" expand="lg">
+        <Navbar bg="nav_bg" sticky="top" expand="lg">
             <Navbar.Brand>
                 <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="logo"/></Nav.Link>
             </Navbar.Brand>
             <NavbarToggle/>
             <Navbar.Collapse>
-                <Nav className="container-fluid">
-                    <Nav.Link as={NavLink} to ="/about">About Course</Nav.Link>
-                    <NavDropdown title="Learning">
-                        <NavDropdown.Item as={Link} to ="/learning/lesson1">Lesson1</NavDropdown.Item>
+                <Nav className="container-fluid ">
+                    <Nav.Link as={NavLink} to ="/about" className='nav_context'>About Course</Nav.Link>
+                    <NavDropdown title={<span className="nav-dropdown">Learning</span>}>
+                        <NavDropdown.Item as={Link} to ="/learning/lesson1">
+                            <FormattedMessage id = "lesson1" defaultMessage="Lesson 1"/>
+                        </NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson2">Lesson2</NavDropdown.Item>
                         <NavDropdown.Divider/>
@@ -32,13 +34,14 @@ const NavBar= ({setLocale}) =>{
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson6">Lesson6</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link as={NavLink} to ="/challenge">Challenge</Nav.Link>
-                    <Nav.Link as={NavLink} to ="/faq">FAQ</Nav.Link>
+                    <Nav.Link as={NavLink} to ="/challenge" className='nav_context'>Challenge</Nav.Link>
+                    <Nav.Link as={NavLink} to ="/faq" className='nav_context'>FAQ</Nav.Link>
                     {/*<NavDropdown title="Language" className="ml-auto">*/}
-                    <Nav.Link as={NavLink} to ="/login" className="ml-auto">
-                        <img src={login_logo} alt="login"className="lang_logo" ></img>
-                    </Nav.Link>
-                    <NavDropdown title={<GrLanguage/>} >
+{/*                     <Nav.Link as={NavLink} to ="/login" className="ml-auto"> */}
+{/*                         <img src={login_logo} alt="login"className="lang_logo" ></img> */}
+{/*                     </Nav.Link> */}
+{/*                     <NavDropdown title={<GrLanguage/>} className='dropdown-content'> */}
+                    <NavDropdown title={<span className="nav-dropdown">Language</span>} align={{ lg: 'end' }} className='ml-auto nav_context'>
 
                     <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
                         <NavDropdown.Divider/>
