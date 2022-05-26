@@ -22,7 +22,6 @@ export default function Routes(){
             <Route path='/about' component={About} />
             <Route path='/setting' component={Setting} />
             <Route path='/challenge' component={Challenge} />
-            {/*<Route exact path='/learning/alllesson' component={Learning} />*/}
             <Route path='/learning/lesson1' component={Learning1} />
             <Route path='/learning/lesson2' component={Learning2} />
             <Route path='/learning/lesson3' component={Learning3} />
@@ -30,7 +29,7 @@ export default function Routes(){
             <Route path='/learning/lesson5' component={Learning5} />
             <Route path='/learning/lesson6' component={Learning6} />
             <Route path='/faq' component={Faq} />
-            <Route path='/login' component={Login} />
+{/*             <Route path='/login' component={Login} /> */}
         </Switch>
     )
 }

@@ -1,5 +1,5 @@
 const en ={
-    "hello":"Hello",
+    "lesson1":"Lesson 1",
     "alllesson":"All Lessons"
 }
 

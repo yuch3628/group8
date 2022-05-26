@@ -2,7 +2,7 @@ import React from "react";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router} from "react-router-dom";
 import './App.css';
-import NavBar from "../src/component/NavBar";
+import NavBar from "./component/NavBar";
 import Routes from "./Routes";
 
 const getData = () => {
