@@ -1,9 +1,4 @@
-/*.card-warpper {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*}*/
-
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 840px) {
     .card-wrapper {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -11,7 +6,7 @@
         /* margin: 2rem auto; */
     }
 }
-@media screen and (min-width: 800px) and (max-width: 950px ){
+@media screen and (min-width: 840px) and (max-width: 950px ){
     .card-wrapper {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

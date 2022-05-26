@@ -3,6 +3,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import bg3 from "../image/home_bg3.jpg";
 import "./Home.css";
 import {useHistory} from "react-router-dom";
+import {FormattedMessage} from "react-intl";
 
  const About = () =>{
      const history = useHistory();
@@ -47,18 +48,18 @@ import {useHistory} from "react-router-dom";
                  <h1> Lessons Information </h1>
                  <div className="parents" >
                      <div className= "child" onClick={ () => routeChange("/learning/lesson1")} >
-                         <p>Restaurant</p>
+                         <p><FormattedMessage id = "lesson1" defaultMessage="Supermarket"/></p>
                      </div>
                      <div className= "child" onClick={ () => routeChange("/learning/lesson2")} >
-                         <p>Supermarket</p>
+                         <p><FormattedMessage id = "lesson2" defaultMessage="Campus"/></p>
                      </div>
                      <div className= "child" onClick={ () => routeChange("/learning/lesson3")}>
-                         <p>Campus</p>
+                         <p><FormattedMessage id = "lesson3" defaultMessage="Restaurant"/></p>
                      </div>
                  </div>
                  <div className="parents">
                      <div className= "child" onClick={ () => routeChange("/learning/lesson4")}>
-                         <p>Jail</p>
+                         <p><FormattedMessage id = "lesson4" defaultMessage="Zoo"/></p>
                      </div>
                      <div className= "child" onClick={ () => routeChange("/learning/lesson5")}>
                          <p>Court</p>

@@ -21,14 +21,20 @@ const NavBar= ({setLocale}) =>{
                     <Nav.Link as={NavLink} to ="/about" className='nav_context'>About Course</Nav.Link>
                     <NavDropdown title={<span className="nav-dropdown">Learning</span>}>
                         <NavDropdown.Item as={Link} to ="/learning/lesson1">
-                            <FormattedMessage id = "lesson1" defaultMessage="Lesson 1"/>
+                            <FormattedMessage id = "lesson1" defaultMessage="Supermarket"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/learning/lesson2">Lesson2</NavDropdown.Item>
+                         <NavDropdown.Item as={Link} to ="/learning/lesson2">
+                             <FormattedMessage id = "lesson2" defaultMessage="Campus"/>
+                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/learning/lesson3">Lesson3</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to ="/learning/lesson3">
+                            <FormattedMessage id = "lesson3" defaultMessage="Restaurant"/>
+                        </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/learning/lesson4">Lesson4</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to ="/learning/lesson4">
+                            <FormattedMessage id = "lesson4" defaultMessage="Zoo"/>
+                        </NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item as={Link} to ="/learning/lesson5">Lesson5</NavDropdown.Item>
                         <NavDropdown.Divider/>

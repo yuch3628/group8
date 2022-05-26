@@ -1,6 +1,7 @@
 import React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import './Learning.css';
+import {FormattedMessage} from "react-intl";
 
 import { useHistory } from 'react-router-dom';
 
@@ -14,13 +15,13 @@ const Learning = () => {
             <h1> Lessons Information </h1>
             <div className="parents" >
                 <div className= "child" onClick={ () => routeChange("/learning/lesson1")} >
-                    <p>Restaurant</p>
+                    <p><FormattedMessage id = "lesson1" defaultMessage="Supermarket"/></p>
                 </div>
                 <div className= "child" onClick={ () => routeChange("/learning/lesson2")} >
-                    <p>Supermarket</p>
+                    <p><FormattedMessage id = "lesson2" defaultMessage="Campus"/></p>
                 </div>
                 <div className= "child" onClick={ () => routeChange("/learning/lesson3")}>
-                    <p>Campus</p>
+                    <p><FormattedMessage id = "lesson3" defaultMessage="Restaurant"/></p>
                 </div>
             </div>
             <div className="parents">

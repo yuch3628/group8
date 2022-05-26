@@ -6,14 +6,15 @@
     /*height: 200px;*/
 }
 
-.flip-card {
-    width: 50vh;
-    height: 50vh;
-    margin: 2rem auto;
-}
+/*.flip-card {*/
+/*    width: 50vh;*/
+/*    height: 50vh;*/
+/*    margin: 2rem auto;*/
+/*}*/
+
 
 .front-side {
-    background-color: #41669d ;
+    background-color: rgba(0, 123, 94, 0.33);
     align-items: center;
     flex: 1;
     font-size: 28;
@@ -26,38 +27,69 @@
     border-radius: 20px;
 }
 
-.img-card {
-    max-width: 100%;
-    max-width: 100%;
+.frame {
+    height: 75%; /*can be anything*/
+    width: 94%; /*can be anything*/
     border-radius: 20px;
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.img-card {
+    /*height: 250px;*/
+    /*width: 310px;*/
+    object-fit: cover;
+    border-radius: 20px;
+    /*max-height: 100%;*/
+    /*max-width: 100%;*/
+    /*width: auto;*/
+    /*height: auto;*/
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .title {
     text-align: center;
     line-height: 3em;
     vertical-align: middle;
+    margin: 1.2rem auto;
+
 }
 
-.content-box {
-    text-align: center;
-    height:40vh;
+/*.content-box {*/
+/*    text-align: center;*/
+/*    height:40vh;*/
+/*}*/
+
+@media screen and (max-width: 500px) {
+    .content-box {
+        text-align: center;
+        height:calc(100% - 100px);
+    }
+    .flip-card {
+        width: calc(100% - 100px);
+        height: calc(100% - 100px);
+        margin: 2rem auto;
+    }
 }
 
-/*@media screen and (min-width: 1600px) {*/
-/*    .flip-card {*/
-/*        width: 50vh;*/
-/*        height: 50vh;*/
-/*        margin-left: 15%;*/
-/*        margin-top: 6%;*/
-/*    }*/
-/*}*/
 
-/*@media screen and (max-width: 1600px) {*/
-/*    .flip-card {*/
-/*        width: 50vh;*/
-/*        height: 50vh;*/
-/*        margin-left: 30%;*/
-/*        margin-right: 30%;*/
-/*        margin-top: 6%;*/
-/*    }*/
-/*}*/
+@media screen and (min-width: 500px) {
+    .content-box {
+        text-align: center;
+        height:40vh;
+    }
+    .flip-card {
+        width: 50vh;
+        height: 50vh;
+        margin: 2rem auto;
+    }
+}

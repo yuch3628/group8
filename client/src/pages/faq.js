@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Accordion_template from '../component/Accordion'
 import '../component/Accordion.css'
+import {FormattedMessage} from "react-intl";
 
 const accordionData = [{
     title: 'How to use this website' ,

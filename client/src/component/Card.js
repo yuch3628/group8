@@ -2,12 +2,14 @@ import { useRef } from 'react';
 import React from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 // import bg from '../image/home_bg2.jpg';
+import {FormattedMessage} from "react-intl";
 import './Card.css';
 
-const Card = ({title, content, audio_path, img_path}) => {
+const Card = ({title, content}) => {
 //     const audio_path = 'example.mp3';
-    const audioUrl = require('../audio/'+audio_path);
-    const imageUrl = require('../image/'+img_path);
+    title = title.replace(/ /g, "");
+    const audioUrl = require('../audio/'+title+'.mp3');
+    const imageUrl = require('../image/'+title+'.jpg');
     const audio = new Audio(audioUrl);
     const start = () => {
         audio.play();
@@ -25,8 +27,8 @@ const Card = ({title, content, audio_path, img_path}) => {
             className='flip-card' /// these are optional style, it is not necessary
         >
             <FrontSide className='front-side'>
-                <img src={imageUrl}  className='img-card' ></img>
-                <div className='title'> {title}</div>
+                <div className='frame'><img src={imageUrl}  className='img-card' ></img></div>
+                <div className='title'><FormattedMessage id = {title} defaultMessage={title}/></div>
             </FrontSide>
             <BackSide className='back-side'>
                 <div className = 'center content-box'>
