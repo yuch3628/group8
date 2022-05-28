@@ -164,18 +164,21 @@ document.addEventListener("DOMContentLoaded", canvasFitsParentDOM);
 window.addEventListener("resize", canvasFitsParentDOM);
 
 function canvasFitsParentDOM(){
-	var challenge = document.getElementById('challenge');
- 
-	// prevents unlimited expending canvas size
-	challenge.width = '10px';
-	challenge.height = '10px';
-	setTimeout(300);
-	////////////////////////////////////////////
+	const challenge = document.getElementById('challenge');
+ 	
+	//prevents unlimited expending canvas size
+	if(challenge!=null){
+		challenge.width = '10px';
+		challenge.height = '10px';
+		setTimeout(300);
+		////////////////////////////////////////////
 
- 	challenge.style.width = '100%';
- 	challenge.style.height = '100%';
-	setTimeout(300);
- 	challenge.width = challenge.offsetWidth - 1;
- 	challenge.height = challenge.offsetHeight - 1;
+	 	challenge.style.width = '100%';
+	 	challenge.style.height = '100%';
+		setTimeout(300);
+	 	challenge.width = challenge.offsetWidth - 1;
+	 	challenge.height = challenge.offsetHeight - 1;
+ 	}
 }
+
 export default Match;
