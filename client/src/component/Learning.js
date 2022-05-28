@@ -11,7 +11,7 @@ const Learning = () => {
         history.push(path);
     }
     return (
-        <div className="content">
+        <div className="content lesson-unit">
             <h1> Lessons Information </h1>
             <div className="parents" >
                 <div className= "child" onClick={ () => routeChange("/learning/lesson1")} >
