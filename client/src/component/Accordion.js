@@ -1,21 +1,25 @@
 import React, {useState} from "react";
 
-const Accordion = ( {title,content})=>{
+export const ItemTypes = {
+    CARD : 'Card',
+}
+
+const Accordion = ( {title,content, props})=>{
     const [isActive, setIsActive] = useState(false);
     return (
         <React.Fragment>
-            <div className="accordion">
+            <div className="accordion" {...props}>
                 <div className="accordion-item">
-                    <div className="accordion-title" onClick={()=>setIsActive(!isActive)}>
+                    <div className="accordion-title">
                         <div>{title}</div>
-                        <div>{isActive ? '-' : '+'}</div>
+                        <div onClick={()=>setIsActive(!isActive)}>{isActive ? '-' : '+'}</div>
                     </div>
                     {isActive && <div className="accordion-content">{content}</div>}
                 </div>
-
             </div>
         </React.Fragment>
     );
 };
+
 
 export default Accordion;
