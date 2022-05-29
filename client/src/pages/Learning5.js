@@ -1,9 +1,34 @@
 import React from 'react';
-const Learning5 = () =>{
+import Card from '../component/Card';
+import './Learning1.css';
+
+let Lesson5 = [];
+const getData = () => {
+    fetch('http://localhost:9000/cards/Breakfast',{
+        method:'GET',
+        header: new Headers({'Content-Type': 'application/json'})})
+    .then((res) => res.json())
+    .then(data => {
+        Lesson5 = [];
+        data.forEach(
+        number => {
+                     let obj = {title:number.name, content:number.mandarin } ;
+                      console.log(number);
+                      Lesson5.push(obj);
+                    });
+    }).catch(e =>{
+        //Error
+    });
+}
+getData();
+const Learning5= () =>{
     return (
-        <div>
-            <h3>This is fifth class.</h3>
+        <div className="card-wrapper">
+            {Lesson5.map(({ title, content}) => (
+                <Card title={title} content={content} />
+            ))}
         </div>
+
     );
 }
 export default Learning5;

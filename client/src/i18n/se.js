@@ -3,6 +3,8 @@ const se ={
     "lesson2":"Campus",
     "lesson3":"Restaurang",
     "lesson4":"Zoo",
+    "lesson5":"Frukost",
+    "lesson6":"Läsk",
     "meat":"meat",
     "alllesson":"Alla lektioner"
 }

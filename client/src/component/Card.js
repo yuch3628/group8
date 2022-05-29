@@ -31,11 +31,12 @@ const Card = ({title, content}) => {
                 <div className='title'><FormattedMessage id = {title} defaultMessage={title}/></div>
             </FrontSide>
             <BackSide className='back-side'>
-                <div className = 'center content-box'>
-                    <br/> {content}
+                <div className = 'center card-content-box'>
+                    <br/>
+                    <spam className = 'backcard-word'>{content}</spam>
                 </div>
                     <div class="center">
-                        <button onClick={start}>Play</button>
+                        <button onClick={start} className = 'play-btn'>Play</button>
                 </div>
 
             </BackSide>
