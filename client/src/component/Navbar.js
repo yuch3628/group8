@@ -5,15 +5,13 @@ import logo from "../logo.png";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import './NavBar.css';
 import {FormattedMessage} from "react-intl";
-import lang_logo from '../image/language_logo.png';
-import login_logo from '../image/login_logo.png';
-import {GrLanguage} from 'react-icons/gr';
+
 
 const NavBar= ({setLocale}) =>{
     return (
         <Navbar bg="nav_bg" sticky="top" expand="lg">
             <Navbar.Brand>
-                <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="logo"/></Nav.Link>
+                <Nav.Link as={NavLink} to="/" exact><img className= 'logo' src={logo} alt="logo"/></Nav.Link>
             </Navbar.Brand>
             <NavbarToggle/>
             <Navbar.Collapse>

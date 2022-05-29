@@ -19,23 +19,18 @@ const Card = ({title, content}) => {
 
         <Flippy
             flipOnHover={true} // default false
-            // flipOnClick={true} // default false
-            flipDirection="horizontal" // horizontal or vertical
-            // ref={(r) => this.flippy = r} // to use toggle method like this.flippy.toggle()
-            // if you pass isFlipped prop component will be controlled component.
-            // and other props, which will go to div
-            className='flip-card' /// these are optional style, it is not necessary
-        >
+            flipDirection="horizontal"
+            className='flip-card'>
             <FrontSide className='front-side'>
-                <div className='frame'><img src={imageUrl}  className='img-card' ></img></div>
+                <div className='frame'><img src={imageUrl}  className='img-card' alt="card"/></div>
                 <div className='title'><FormattedMessage id = {title} defaultMessage={title}/></div>
             </FrontSide>
             <BackSide className='back-side'>
                 <div className = 'center card-content-box'>
                     <br/>
-                    <spam className = 'backcard-word'>{content}</spam>
+                    <span className = 'backcard-word'>{content}</span>
                 </div>
-                    <div class="center">
+                    <div className="center">
                         <button onClick={start} className = 'play-btn'>Play</button>
                 </div>
 

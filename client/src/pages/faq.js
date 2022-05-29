@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Accordion_template from '../component/Accordion'
+import AccordionTemplate from '../component/Accordion'
 import '../component/Accordion.css'
 import {FormattedMessage} from "react-intl";
 
@@ -64,7 +64,7 @@ const Faq = () => {
         <div>
             <h3>Frequently asked question</h3>
             {accordionData.map(({ title, content }) => (
-                <Accordion_template title={title} content={content} />))}
+                <AccordionTemplate title={title} content={content} />))}
         </div>
     )
     };

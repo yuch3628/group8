@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-// import {Accordion} from "react-bootstrap";
 
 const Accordion = ( {title,content})=>{
     const [isActive, setIsActive] = useState(false);
