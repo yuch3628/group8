@@ -1,4 +1,14 @@
 const zh ={
+    "aboutcourse":"關於課程",
+    "challenge":"挑戰",
+    "faq":"FAQ",
+    "language":"語言",
+    "swedish":"瑞典文",
+    "english":"英文",
+    "mandarin":"中文",
+    "spanish":"西班牙文",
+    "lessoninfo":"課程資訊",
+    "introinfo":"如何開始你的中文旅程?",
     "lesson1":"超市",
     "lesson2":"校園",
     "lesson3":"餐廳",
@@ -55,6 +65,18 @@ const zh ={
     "ice":"冰塊",
     "cola":"可樂",
     "sprites":"雪碧",
+    "question1":"How to use this website?",
+    "question2":"How do I use practice after course?",
+    "question3":"How long should I study for one lesson?",
+    "question4":"How can I change language?",
+    "question5":"I meet some problem how should I do?",
+    "question6":"Where are the course resources coming from?",
+    "answer1":"This website wants to help people learn basic Mandarin words and we provide picture with preference language, so when you want to learn you can flip the word card to see the word and hear the sound! After finishing each course you can use Challenge page to test if you remember the words!!!",
+    "answer2":"You can use Challenge page to see do you remember the words fro the course, and of course it's good to write the words down and practice the pronunciation!!! Don't hesitate!!! Start your Mandarin journey from now on!",
+    "answer3":"For the beginner, we recommend use one minutes to see the cards and after going through all the cards, you still can practice every day but reduce the time to see the cards until you can remember all the words in the lesson!",
+    "answer4":"If you use website, the language options are on the top right of the navigation bar. If you use smartphone or small device, click on the top right of the navigation bar and the last one is language option, you can choose your preference language!",
+    "answer5":"Now you are in FAQ page, you can look through all the questions and if all the questions don't have your problem, you can email to startMandarinJourney@gmail.com!",
+    "answer6":"The pictures in the website are from https://pixabay.com/, it's open resources. The sound resources are recorded by us! If you have any problems, please contact to 0762331234!!!",
     "alllesson":"全部課程"
 }
 

@@ -7,14 +7,16 @@ import reportWebVitals from './reportWebVitals';
 // import { BrowserRouter as Router } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { IntlProvider} from "react-intl";
-import locale_en from "./i18n/en";
-import locale_se from "./i18n/se";
-import locale_zh from "./i18n/zh";
+import locale_en from "./i18n/en.js";
+import locale_fr from "./i18n/fr.js";
+import locale_zh from "./i18n/zh.js";
+import locale_es from "./i18n/es.js";
 
 const data = {
     'en':locale_en,
-    'se':locale_se,
-    'zh':locale_zh
+    'fr':locale_fr,
+    'zh':locale_zh,
+    'es':locale_es
 }
 const Root = () =>{
     const [locale,setLocale] = useState(navigator.language);

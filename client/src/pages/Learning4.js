@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../component/Card';
-import './Learning1.css';
+import '../style/Learning1.css';
 
 let Lesson4 = [];
 const getData = () => {

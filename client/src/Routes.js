@@ -3,7 +3,6 @@ import {Route, Switch} from "react-router-dom";
 // import NotFound from "./containers/NotFound";
 import About from "./pages/About"
 import Home from "./pages/Home";
-import Setting from "./pages/Setting";
 import Challenge from "./pages/Challenge";
 import Learning1 from "./pages/Learning1";
 import Learning2 from "./pages/Learning2";
