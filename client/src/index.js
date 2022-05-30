@@ -21,18 +21,19 @@ const Root = () =>{
 
     const language = locale.split(/[-_]/)[0];
     return(
-        <React.StrictMode>
-            <IntlProvider locale={language} key={language} defaultLocale='en' messages={data[language]}>
-                <App setLocale={setLocale}/>
-            </IntlProvider>
-        </React.StrictMode>
+        <IntlProvider locale={language} key={language} defaultLocale='en' messages={data[language]}>
+            <App setLocale={setLocale}/>
+        </IntlProvider>
     )
 }
 
-ReactDOM.render(
-    <Root/>,
-    document.getElementById('root'));
-
+// ReactDOM.render(
+//     <Root/>,
+//     document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <Root/>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

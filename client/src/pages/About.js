@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import bg3 from "../image/home_bg3.jpg";
-import "./Home.css";
+// import "./Home.css";
 import "./About.css";
 import {useHistory} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
@@ -47,16 +47,20 @@ import {Button} from "react-bootstrap";
                  </Carousel.Item>
              </Carousel>
              </div>
-             <div className="content">
+             <div className="about_content">
                  <FadeInSection>
-                     <h3>How to start your madarin jounrey?</h3>
+                     <br/>
+                     <br/>
+                     <h3>How to start your Mandarin jounrey?</h3>
                  </FadeInSection>
                  <FadeInSection>
-                     <div className = 'about_content'>
-                         How to start your madarin jounrey?How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey?</div>
+                     <div className = 'column_content'>
+                         How to start your Mandarin jounrey?How to start your Mandarin jounrey? How to start your Mandarin jounrey? How to start your Mandarin jounrey? How to start your Mandarin jounrey?</div>
                  </FadeInSection>
              </div>
-                 <div className="content">
+             <hr className="solid"></hr>
+
+             <div className="about_content">
                      <FadeInSection>
                         <h1> Lessons Information </h1>
                      </FadeInSection>
@@ -79,20 +83,24 @@ import {Button} from "react-bootstrap";
                                  <p><FormattedMessage id = "lesson4" defaultMessage="Zoo"/></p>
                              </div>
                              <div className= "child" onClick={ () => routeChange("/learning/lesson5")}>
-                                 <p>Court</p>
+                                 <p><FormattedMessage id = "lesson5" defaultMessage="Breakfast"/></p>
                              </div>
                              <div className= "child" onClick={ () => routeChange("/learning/lesson6")}>
-                                 <p>Zoo</p>
+                                 <p><FormattedMessage id = "lesson6" defaultMessage="Soft drinks"/></p>
                              </div>
                          </div>
                      </FadeInSection>
                  </div>
-             <div className="content">
+             <hr className="solid"></hr>
+
+             <div className="about_content">
+                 <br/>
+                 <br/>
                  <FadeInSection>
                      <h3>If you have more problem?</h3>
                  </FadeInSection>
                  <FadeInSection>
-                     <div className = 'about_content'>How to start your madarin jounrey?How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey?</div>
+                     <div className = 'column_content'>How to start your madarin jounrey?How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey?</div>
                      <div className= "btn-space">
                          <Button className = 'nav-faq'  onClick={ () => routeChange("/faq")}>See More</Button>
                      </div>

@@ -53,15 +53,12 @@ font{
 /*}*/
 
 .content{
-    width: 100vw;
-    height: 100vh;
+    width: auto;
+    height: auto;
     background: aliceblue;
     color: black;
 }
 
-.lesson-unit{
-    background: lightsteelblue;
-}
 h1{
     font-size: 3rem;
     padding: 50px;
@@ -74,28 +71,28 @@ p{
     color: aliceblue;
 }
 
-.parents{
-    width: 80vw;
-    height: auto;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    transition: all 0.2 linear;
+/*.parents{*/
+/*    width: 80vw;*/
+/*    height: auto;*/
+/*    margin: auto;*/
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+/*    flex-wrap: wrap;*/
+/*    transition: all 0.2 linear;*/
 
-}
-.child{
-    /*width: 200px;*/
-    text-align:center;
-    height: 200px;
-    background:dimgrey;
-    flex: 1 1 200px;
-    margin: 20px;
-    box-shadow: 0 0 20px #bac3c3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/*}*/
+/*.child{*/
+/*    !*width: 200px;*!*/
+/*    text-align:center;*/
+/*    height: 200px;*/
+/*    background:dimgrey;*/
+/*    flex: 1 1 200px;*/
+/*    margin: 20px;*/
+/*    box-shadow: 0 0 20px #bac3c3;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
 @media (max-width: 768px) {
     .content{height: auto;}

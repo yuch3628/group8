@@ -5,15 +5,13 @@ import logo from "../logo.png";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import './NavBar.css';
 import {FormattedMessage} from "react-intl";
-import lang_logo from '../image/language_logo.png';
-import login_logo from '../image/login_logo.png';
-import {GrLanguage} from 'react-icons/gr';
+
 
 const NavBar= ({setLocale}) =>{
     return (
         <Navbar bg="nav_bg" sticky="top" expand="lg">
             <Navbar.Brand>
-                <Nav.Link as={NavLink} to="/" exact><img class = 'logo' src={logo} alt="logo"/></Nav.Link>
+                <Nav.Link as={NavLink} to="/" exact><img className= 'logo' src={logo} alt="logo"/></Nav.Link>
             </Navbar.Brand>
             <NavbarToggle/>
             <Navbar.Collapse>
@@ -36,19 +34,17 @@ const NavBar= ({setLocale}) =>{
                             <FormattedMessage id = "lesson4" defaultMessage="Zoo"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/learning/lesson5">Lesson5</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to ="/learning/lesson5">
+                            <FormattedMessage id = "lesson5" defaultMessage="Breakfast"/>
+                        </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/learning/lesson6">Lesson6</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to ="/learning/lesson6">
+                            <FormattedMessage id = "lesson6" defaultMessage="Soft drinks"/>
+                        </NavDropdown.Item>
                     </NavDropdown>
                     <Nav.Link as={NavLink} to ="/challenge" className='nav_context'>Challenge</Nav.Link>
                     <Nav.Link as={NavLink} to ="/faq" className='nav_context'>FAQ</Nav.Link>
-                    {/*<NavDropdown title="Language" className="ml-auto">*/}
-{/*                     <Nav.Link as={NavLink} to ="/login" className="ml-auto"> */}
-{/*                         <img src={login_logo} alt="login"className="lang_logo" ></img> */}
-{/*                     </Nav.Link> */}
-{/*                     <NavDropdown title={<GrLanguage/>} className='dropdown-content'> */}
                     <NavDropdown title={<span className="nav-dropdown">Language</span>} align={{ lg: 'end' }} className='ml-auto nav_context'>
-
                     <NavDropdown.Item onClick={()=> setLocale('se')}>Swedish</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={()=> setLocale('en')}>English</NavDropdown.Item>

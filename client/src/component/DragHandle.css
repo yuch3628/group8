@@ -1,0 +1,10 @@
+.drag-handle {
+    display: inline-block;
+}
+
+.drag-svg {
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+    padding-right: 1rem;
+}

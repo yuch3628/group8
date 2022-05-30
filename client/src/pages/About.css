@@ -1,12 +1,43 @@
-.about_content{
+.column_content{
     padding-top: 50px;
     padding-right: 60px;
     padding-bottom: 50px;
     padding-left: 80px;
 }
 
+.parents{
+    width: 80vw;
+    height: auto;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    transition: all 0.2 linear;
+
+}
+
+.child{
+    /*width: 200px;*/
+    text-align:center;
+    height: 200px;
+    background:dimgrey;
+    flex: 1 1 200px;
+    margin: 20px;
+    box-shadow: 0 0 20px #bac3c3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
 .btn-space{
     padding-left: 80px;
+}
+
+.about_content{
+    width: auto;
+    height: auto;
+    color: black;
 }
 
 .nav-faq{
