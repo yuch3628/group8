@@ -4,3 +4,4 @@
 /src/component/Flashcard.css
 /src/component/Flashcard.js
 node_modules/
+*.json

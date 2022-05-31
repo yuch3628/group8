@@ -68,7 +68,6 @@ div.progress_bar{
 	flex: 0 1 6px;
 	height: 6px;
 	width: 100%;
-	background-color: red;
 	position: relative;
 }
 
