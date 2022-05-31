@@ -66,6 +66,8 @@ class Match extends React.Component{
 		this.state = {
 			prompts: Array(4).fill(null),
 			answers: Array(4).fill(null),
+			promptsOrder: Array(4).fill(null),
+			answersOrder: Array(4).fill(null),
 			choosePromptId: "",
 			chooseAnswerId: "",
 			userMatches: Array(4).fill([null,null]),
@@ -77,7 +79,7 @@ class Match extends React.Component{
 	}
 	
 	renderPrompt(i, word){
-		console.log(word);
+		//console.log(word);
 		return (
 			<Square 
 			value={this.state.prompts[i]}
@@ -86,7 +88,6 @@ class Match extends React.Component{
 			word = {word}
 			onClick={(event)=>{
 				this.setPromptColor(event)
-				this.setPrompts(["1","2","3","4"]);
 				}
 			}
 			/>
@@ -111,35 +112,66 @@ class Match extends React.Component{
 			);
 	}
 	
-	setPromptColor(event){
-		this.setState(
+	async setPromptColor(event){
+		await this.setState(
 		{
 			choosePromptId: event.target.id,
 		});
 		var square = document.getElementById(event.target.id);
-		var squares = document.getElementsByClassName("prompt");
+		var squares = document.getElementsByClassName("square");
 		for(const s of squares){
 			s.style.backgroundColor = '';
 		}
 		square.style.backgroundColor = 'limegreen';
+		if(this.state.chooseAnswerId != "")
+			this.checkAnswer();
 	}
 
-	setAnswerColor(event){
-		this.setState(
+	async setAnswerColor(event){
+		await this.setState(
 		{
 			chooseAnswerId: event.target.id,
 		});
 		var square = document.getElementById(event.target.id);
-		var squares = document.getElementsByClassName("answer");
+		var squares = document.getElementsByClassName("square");
 		for(const s of squares){
 			s.style.backgroundColor = '';
 		}
 		square.style.backgroundColor = 'limegreen';
+		if(this.state.choosePromptId != "")
+			this.checkAnswer();
 	}
 
 	setPrompts(promptsArray){
 		this.setState({
 			prompts: promptsArray,
+		});
+	}
+
+	checkAnswer(){
+		let ans = this.state.chooseAnswerId.slice(-1);
+		let pro = this.state.choosePromptId.slice(-1);
+		let ansDOM = document.getElementById(this.state.chooseAnswerId);
+		let proDOM = document.getElementById(this.state.choosePromptId);
+		console.log("ANS ID:" + ans + "===" +this.state.answersOrder[ans]);
+		console.log("PRO ID:" + pro + "===" + this.state.promptsOrder[pro]);
+		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
+			// Correct~~~
+			ansDOM.disabled = true;
+			proDOM.disabled = true;
+			ansDOM.style.backgroundColor = '';
+			proDOM.style.backgroundColor = '';
+
+		}
+		else {
+			// Wrong!!!
+			ansDOM.style.backgroundColor = 'red';
+			proDOM.style.backgroundColor = 'red';
+
+		}			
+		this.setState({
+			chooseAnswerId: "",
+			choosePromptId: ""
 		});
 	}
 
@@ -155,26 +187,33 @@ class Match extends React.Component{
 			gameHeight: gameHeight, 
 			buttonYPoints: buttonYPoints,
 		});
+		canvasFitsParentDOM();
 		this.prepareData();
 	}
 	
 	async prepareData(){
 		var words = await getData();
-		var shuffledArray = shuffleArray(words.length);
-		var result = new Array();
+		var shuffledArray = shuffleNewArray(words.length);
+		var promptsShuffledArray = shuffleArray(4, shuffledArray);
+		console.log(shuffledArray);
+		console.log(promptsShuffledArray);
+		var prompts = new Array();
+		var answers = new Array();
 		for(let i = 0; i < 4; ++i){
 			let btn = document.getElementById("answer"+i);
 			btn.textContent = words[shuffledArray[i]]['content'];
-			result.push(words[shuffledArray[i]]['title']);
+			answers.push(words[shuffledArray[i]]['content']);
+			prompts.push(words[promptsShuffledArray[i]]['title']);
 		}
 		this.setState({
-			prompts: result,
+			prompts: prompts,
+			answers: answers,
+			promptsOrder: promptsShuffledArray,
+			answersOrder: shuffledArray.slice(0,4),
 		});
 	}
 
 	render(){
-		console.log("==================");
-		console.log();
 		return(
 			<div className="Matching">
 				<div className="matching_title">Matching</div>
@@ -329,24 +368,32 @@ async function getData() {
     return(Lesson);   
 }
 
-function shuffleArray(length){
+function shuffleNewArray(length){
 	var array = new Array();
 	for(let i = 0; i < length; ++i){
 		array.push(i);
 	}
 	for (let i = array.length - 1; i > 0; --i) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+	    const j = Math.floor(Math.random() * (i + 1));
+	    const temp = array[i];
+	    array[i] = array[j];
+	    array[j] = temp;
   	}
   	return array;
 }
 
-
+function shuffleArray(length, oldArray){
+	const array = oldArray.slice(0, length);
+	for (let i = length - 1; i > 0; --i) {
+	    const j = Math.floor(Math.random() * (i + 1));
+	    const temp = array[i];
+	    array[i] = array[j];
+	    array[j] = temp;
+  	}
+  	return array;
+}
 
 function main(){
-
 	if (document.readyState !== 'loading') { // prevents the Event 'DOMContentLoaded' not being fired
 		canvasFitsParentDOM();
 		setFPS();
