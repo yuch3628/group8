@@ -153,10 +153,12 @@ class Match extends React.Component{
 		let pro = this.state.choosePromptId.slice(-1);
 		let ansDOM = document.getElementById(this.state.chooseAnswerId);
 		let proDOM = document.getElementById(this.state.choosePromptId);
+		const oldMatches = this.state.userMatches;
 		console.log("ANS ID:" + ans + "===" +this.state.answersOrder[ans]);
 		console.log("PRO ID:" + pro + "===" + this.state.promptsOrder[pro]);
 		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
 			// Correct~~~
+			oldMatches.push([pro, ans]);
 			ansDOM.disabled = true;
 			proDOM.disabled = true;
 			ansDOM.style.backgroundColor = '';
@@ -171,7 +173,8 @@ class Match extends React.Component{
 		}			
 		this.setState({
 			chooseAnswerId: "",
-			choosePromptId: ""
+			choosePromptId: "",
+			userMatches: oldMatches,
 		});
 	}
 
@@ -186,6 +189,7 @@ class Match extends React.Component{
 		this.setState({ 
 			gameHeight: gameHeight, 
 			buttonYPoints: buttonYPoints,
+			userMatches: [],
 		});
 		canvasFitsParentDOM();
 		this.prepareData();
@@ -261,7 +265,6 @@ function canvasFitsParentDOM(){
 	 	challenge.height = challenge.offsetHeight - 1;
 	 	timer.width = timer.offsetWidth - 1;
  	}
- 	redrawTimer(60000, 30000);
 }
 
 function setFPS(){
@@ -322,13 +325,14 @@ function redrawTimer(totalTime, remainingTime){
 		var ctx = canvas.getContext('2d');
 		var remaining = remainingTime / totalTime;
 		var lingrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-		lingrad.addColorStop(0, '#FF0000'); // red
 		if(1 - remaining < 0.99 && 1 - remaining > 0.01 ){
-		lingrad.addColorStop(1 - remaining - 0.01, '#FF0000');
-		lingrad.addColorStop(1 - remaining, '#FFFFFF');
-		lingrad.addColorStop(1 - remaining + 0.01, '#00FF00');
-		lingrad.addColorStop(1, '#00FF00');
-	}
+			lingrad.addColorStop(0, '#FF0000'); // red
+			lingrad.addColorStop(1 - remaining - 0.01, '#FF0000');
+			lingrad.addColorStop(1 - remaining, '#FFFFFF');
+			lingrad.addColorStop(1 - remaining + 0.01, '#00FF00');
+			lingrad.addColorStop(1, '#00FF00');
+		} else 
+			lingrad.addColorStop(0, '#00FF00'); // red
   		ctx.fillStyle = lingrad;
   		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
