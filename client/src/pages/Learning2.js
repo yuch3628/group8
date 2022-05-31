@@ -13,7 +13,7 @@ const getData = () => {
         data.forEach(
         number => {
                      let obj = {title:number.name, content:number.mandarin } ;
-                      console.log(number);
+                      //console.log(number);
                       Lesson2.push(obj);
                     });
     }).catch(e =>{
@@ -21,6 +21,7 @@ const getData = () => {
     });
 }
 getData();
+console.log(Lesson2);
 const Learning2 = () =>{
     return (
         <div className="card-wrapper">

@@ -1,27 +1,48 @@
 import React from 'react';
-import "./Challenge.css"
-import {FormattedMessage} from "react-intl";
+import "../style/Challenge.css"
+import {FormattedMessage} from "react-intl"
+import {useIntl, IntlProvider} from "react-intl";
 
 //import ReactDOM from 'react-dom';
 const Challenge = () =>{
     return (
         <div>
-            <h3>This is challenge page.</h3>
+            <h3>This is challenge page.</h3>   
         </div>
     );
 }
 
 function Square(props) {
-	return(
-		<button 
-		className = {"square " + props.className}
-		onClick={props.onClick}
-		id = {props.id}
-		>
-		{props.value+" TEST"}
-		<FormattedMessage id = "lesson3" defaultMessage="Restaurant"/>
-		</button>
-	);
+	const intl = useIntl();
+	if(props.word!=null && intl.locale != 'zh')
+		return(
+			<button 
+			className = {"square " + props.className}
+			onClick={props.onClick}
+			id = {props.id}
+			>
+			<FormattedMessage id={props.word} defaultMessage={props.word}/>
+			</button>
+		);
+	else if(props.word!=null && intl.locale == 'zh')
+		return(
+			<button 
+			className = {"square " + props.className}
+			onClick={props.onClick}
+			id = {props.id}
+			>
+			{props.word}
+			</button>
+		);
+	else
+		return(
+			<button 
+			className = {"square " + props.className}
+			onClick={props.onClick}
+			id = {props.id}
+			>
+			</button>
+		);
 }
 
 class Timer extends React.Component{
@@ -55,12 +76,14 @@ class Match extends React.Component{
 		};
 	}
 	
-	renderPrompt(i){
+	renderPrompt(i, word){
+		console.log(word);
 		return (
 			<Square 
 			value={this.state.prompts[i]}
 			className = "prompt"
 			id = {"prompt" + i}
+			word = {word}
 			onClick={(event)=>{
 				this.setPromptColor(event)
 				this.setPrompts(["1","2","3","4"]);
@@ -95,7 +118,6 @@ class Match extends React.Component{
 		});
 		var square = document.getElementById(event.target.id);
 		var squares = document.getElementsByClassName("prompt");
-		console.log(squares);
 		for(const s of squares){
 			s.style.backgroundColor = '';
 		}
@@ -109,7 +131,6 @@ class Match extends React.Component{
 		});
 		var square = document.getElementById(event.target.id);
 		var squares = document.getElementsByClassName("answer");
-		console.log(squares);
 		for(const s of squares){
 			s.style.backgroundColor = '';
 		}
@@ -134,18 +155,35 @@ class Match extends React.Component{
 			gameHeight: gameHeight, 
 			buttonYPoints: buttonYPoints,
 		});
+		this.prepareData();
 	}
 	
+	async prepareData(){
+		var words = await getData();
+		var shuffledArray = shuffleArray(words.length);
+		var result = new Array();
+		for(let i = 0; i < 4; ++i){
+			let btn = document.getElementById("answer"+i);
+			btn.textContent = words[shuffledArray[i]]['content'];
+			result.push(words[shuffledArray[i]]['title']);
+		}
+		this.setState({
+			prompts: result,
+		});
+	}
+
 	render(){
+		console.log("==================");
+		console.log();
 		return(
 			<div className="Matching">
 				<div className="matching_title">Matching</div>
 				<div className="game" ref={(divElement) => {this.divElement = divElement} }>
 					<div className="div_prompts">
-					{this.renderPrompt(0)}
-					{this.renderPrompt(1)}
-					{this.renderPrompt(2)}
-					{this.renderPrompt(3)}
+					{this.renderPrompt(0, this.state.prompts[0])}
+					{this.renderPrompt(1, this.state.prompts[1])}
+					{this.renderPrompt(2, this.state.prompts[2])}
+					{this.renderPrompt(3, this.state.prompts[3])}
 					</div>
 					<div className="challenge">
 						<canvas className="challenge" id="challenge"/>
@@ -164,18 +202,12 @@ class Match extends React.Component{
 		);
 	}
 }
-document.addEventListener("DOMContentLoaded", canvasFitsParentDOM);
-document.addEventListener("DOMContentLoaded", setFPS);
-//document.addEventListener("DOMContentLoaded", drawTimer);
-
-
-window.addEventListener("resize", canvasFitsParentDOM);
 
 function canvasFitsParentDOM(){
 	const challenge = document.getElementById('challenge');
  	const timer = document.getElementById('timer');
-	//prevents unlimited expending canvas size
 	if(challenge!=null){
+		//prevents unlimited expending canvas size
 		challenge.width = '10px';
 		challenge.height = '10px';
 		timer.width = '10px'
@@ -193,12 +225,11 @@ function canvasFitsParentDOM(){
  	redrawTimer(60000, 30000);
 }
 
-var i = 0;
 function setFPS(){
-	var test = 60000;
-	setInterval(draw, 16.6667);
+	setInterval(draw, 16.6667); // 60 fps
 }
 
+var i = 0;
 function draw(){
 	i++;
 	var canvas = document.getElementById('challenge');
@@ -266,29 +297,68 @@ function redrawTimer(totalTime, remainingTime){
 
 
 
-let param = new URLSearchParams(window.location.search);
-var lessons = ['Supermarket', 'Campus', 'Restaurant', 'Zoo', 'Breakfast', 'Softdrinks']
-var Lesson = [];
-function getData() {
-    fetch('http://localhost:9000/cards/' + lessons[param.get('lesson')-1],{
+
+async function getData() {
+	var lessonNumber = 0;
+	let param = new URLSearchParams(window.location.search);
+	var lessons = ['Supermarket', 'Campus', 'Restaurant', 'Zoo', 'Breakfast', 'Softdrinks']
+	var Lesson = new Array();
+	if(param.has('lesson')){
+		if(param.get('lesson') <= 0 || param.get('lesson') >= 7)
+			lessonNumber = Math.floor(Math.random() * 6);
+		else
+			lessonNumber = param.get('lesson') - 1;
+	} else {
+		lessonNumber = Math.floor(Math.random() * 6);
+	}
+	//console.log(lessonNumber+ ":" + lessons[lessonNumber]);
+    await fetch('http://localhost:9000/cards/' + lessons[lessonNumber], {
         method:'GET',
         header: new Headers({'Content-Type': 'application/json'})})
     .then((res) => res.json())
     .then(data => {
         data.forEach(
-        number => {
-                     let obj = {title:number.name, content:number.mandarin } ;
-                      console.log(number);
-                      Lesson.push(obj);
-                    });
-    }).catch(e =>{
+        	number => {
+                     	var obj = {title:number.name, content:number.mandarin};
+                     	Lesson.push(obj);
+            });
+    } 
+    ).catch(e =>{
         //Error
     });
+    return(Lesson);   
 }
-getData();
 
-console.log(Lesson);
+function shuffleArray(length){
+	var array = new Array();
+	for(let i = 0; i < length; ++i){
+		array.push(i);
+	}
+	for (let i = array.length - 1; i > 0; --i) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  	}
+  	return array;
+}
 
 
+
+function main(){
+
+	if (document.readyState !== 'loading') { // prevents the Event 'DOMContentLoaded' not being fired
+		canvasFitsParentDOM();
+		setFPS();
+	} else {
+		document.addEventListener("DOMContentLoaded", canvasFitsParentDOM);
+		document.addEventListener("DOMContentLoaded", setFPS);
+	}
+
+	// fits the canvas 
+	window.addEventListener("resize", canvasFitsParentDOM);
+}
+
+main();	
 
 export default Match;

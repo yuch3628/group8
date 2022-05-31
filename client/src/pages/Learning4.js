@@ -13,7 +13,7 @@ const getData = () => {
         data.forEach(
         number => {
                      let obj = {title:number.name, content:number.mandarin } ;
-                      console.log(number);
+                      //console.log(number);
                       Lesson4.push(obj);
                     });
     }).catch(e =>{
