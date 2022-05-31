@@ -8,16 +8,16 @@
 
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-import About from "./pages/About";
-import Home from "./pages/Home";
+import About from "./view/About";
+import Home from "./view/Home";
 import Challenge from "./pages/Challenge";
-import Learning1 from "./pages/Learning1";
-import Learning2 from "./pages/Learning2";
-import Learning3 from "./pages/Learning3";
-import Learning4 from "./pages/Learning4";
-import Learning5 from "./pages/Learning5";
-import Learning6 from "./pages/Learning6";
-import Faq from "./pages/Faq.js";
+import Learning1 from "./view/Learning1";
+import Learning2 from "./view/Learning2";
+import Learning3 from "./view/Learning3";
+import Learning4 from "./view/Learning4";
+import Learning5 from "./view/Learning5";
+import Learning6 from "./view/Learning6";
+import Faq from "./view/Faq.js";
 
 // Use react-router-dom to set the routes of each page
 export default function Routes(){

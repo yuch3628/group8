@@ -8,7 +8,7 @@
 import React,{ useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './pages/App.js';
+import App from './view/App.js';
 import reportWebVitals from './reportWebVitals';
 import { IntlProvider} from "react-intl";
 import locale_en from "./i18n/en.js";
