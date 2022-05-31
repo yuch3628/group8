@@ -1,0 +1,35 @@
+{
+  "FAQ": [
+    {
+      "id": 1,
+      "title": "question1",
+      "content": "answer1"
+    },
+    {
+      "id": 2,
+      "title": "question2",
+      "content": "answer2"
+    },
+    {
+      "id": 3,
+      "title": "question3",
+      "content": "answer3"
+    },
+    {
+      "id": 4,
+      "title": "question4",
+      "content": "answer4"
+    },
+    {
+      "id": 5,
+      "title": "question5",
+      "content": "answer5"
+    },
+    {
+      "id": 6,
+      "title": "question6",
+      "content": "answer6"
+    }
+  ]
+}
+

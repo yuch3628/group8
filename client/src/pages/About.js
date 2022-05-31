@@ -1,8 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import bg3 from "../image/home_bg3.jpg";
-// import "./Home.css";
-import "./About.css";
+import "../style/About.css";
 import {useHistory} from "react-router-dom";
 import {FormattedMessage} from "react-intl";
 import FadeInSection from '../component/FadeInSection';
@@ -45,24 +44,34 @@ import {Button} from "react-bootstrap";
                          </div>
                      </Carousel.Caption>
                  </Carousel.Item>
+                 <Carousel.Item class="Home-content" interval={600}>
+                     <img className="d-block w-100" src={bg3} alt="First slide"/>
+                     <Carousel.Caption>
+                         <div className="content-box">
+                             <h1>Hola!</h1>
+                             <p>¡Comienza tu viaje chino ahora mismo!</p>
+                         </div>
+                     </Carousel.Caption>
+                 </Carousel.Item>
              </Carousel>
              </div>
              <div className="about_content">
                  <FadeInSection>
                      <br/>
                      <br/>
-                     <h3>How to start your Mandarin jounrey?</h3>
+                     <h1><FormattedMessage id = "introinfo" defaultMessage="How to start your Mandarin journey?"/></h1>
                  </FadeInSection>
                  <FadeInSection>
                      <div className = 'column_content'>
-                         How to start your Mandarin jounrey?How to start your Mandarin jounrey? How to start your Mandarin jounrey? How to start your Mandarin jounrey? How to start your Mandarin jounrey?</div>
+                         <FormattedMessage id = "intro-content" defaultMessage="aaa" values={{br : <br/>}}/></div>
                  </FadeInSection>
              </div>
              <hr className="solid"></hr>
 
              <div className="about_content">
                      <FadeInSection>
-                        <h1> Lessons Information </h1>
+                        {/*<h1> Lessons Information </h1>*/}
+                         <h1><FormattedMessage id = "lessoninfo" defaultMessage="Lessons Information"/></h1>
                      </FadeInSection>
                      <FadeInSection>
                          <div className="parents" >
@@ -97,12 +106,14 @@ import {Button} from "react-bootstrap";
                  <br/>
                  <br/>
                  <FadeInSection>
-                     <h3>If you have more problem?</h3>
+                     <h3><FormattedMessage id = "probleminfo" defaultMessage="probleminfo"/></h3>
                  </FadeInSection>
                  <FadeInSection>
-                     <div className = 'column_content'>How to start your madarin jounrey?How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey? How to start your madarin jounrey?</div>
+                     <div className = 'column_content'>
+                         <FormattedMessage id = "problemcontent" defaultMessage="problemcontent"/>
+                     </div>
                      <div className= "btn-space">
-                         <Button className = 'nav-faq'  onClick={ () => routeChange("/faq")}>See More</Button>
+                         <Button className = 'nav-faq'  onClick={ () => routeChange("/faq")}><FormattedMessage id = "seemore" defaultMessage="See More"/></Button>
                      </div>
 
                  </FadeInSection>

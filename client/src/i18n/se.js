@@ -1,4 +1,12 @@
 const se ={
+    "aboutcourse":"About course",
+    "challenge":"Challenge",
+    "faq":"FAQ",
+    "language":"Language",
+    "swedish":"Swedish",
+    "english":"English",
+    "mandarin":"Mandarin",
+    "spanish":"Spanish",
     "lesson1":"Mataffär",
     "lesson2":"Campus",
     "lesson3":"Restaurang",

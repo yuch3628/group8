@@ -1,76 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import AccordionTemplate from '../component/Accordion'
 import '../component/Accordion.css'
-// import {FormattedMessage} from "react-intl"; 
+import {FormattedMessage} from "react-intl";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const accordionData = [{
-    id: 1,
-    title: 'How to use this website' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 2,
-    title: 'How do I use pratice after course?' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 3,
-    title: 'How long should I study for one lesson?' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 3,
-    title: 'How can I change language?' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 4,
-    title: 'I meet some problem when I log into my account!' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 5,
-    title: 'I meet some problem when I log into my account!' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 6,
-    title: 'I meet some problem when I log into my account!' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 7,
-    title: 'I meet some problem when I log into my account!' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-},{
-    id: 8,
-    title: 'I meet some problem when I log into my account!' ,
-    content:'Lorem ipsum dolor, sit amet consectetur adipisicing elit.' +
-        ' Quis sapiente laborum cupiditate possimus labore, ' +
-        'hic temporibus velit dicta earum suscipit commodi eum enim atque at? ' +
-        'Et perspiciatis dolore iure voluptatem.'
-}];
+let accordionData = [];
 
-const List = {
-    list: accordionData,
+let List = {
+    list: [],
     getList: function () {
         return (
             (localStorage.getItem("theList") &&
@@ -83,6 +20,26 @@ const List = {
     },
 };
 
+const getData = () => {
+    fetch('http://localhost:9000/faq',{
+        method:'GET',
+        header: new Headers({'Content-Type': 'application/json'})})
+    .then((res) => res.json())
+    .then(data => {
+        accordionData = [];
+        data.forEach(
+        accordion => {
+                     let obj = {id: accordion.id , title: accordion.title, content:accordion.content } ;
+                      accordionData.push(obj);
+                    });
+        List['list'] = accordionData;
+    }).catch(e =>{
+        //Error
+    });
+}
+
+getData();
+
 
 const Faq = () => {
     const list = List.getList();
@@ -91,7 +48,6 @@ const Faq = () => {
         <DragDropContext 
             onDragEnd={(param) => {
                 const srcI = param.source.index;
-//                 const desI = param.destination?.index;
                 let desI;
                 if (param.destination !== null && param.destination !== undefined) {
                     desI = param.destination.index;
@@ -102,7 +58,7 @@ const Faq = () => {
                 }
           }}>
             <div>
-                <h3>Frequently asked question</h3>
+                <h3><FormattedMessage id = "faq-title" defaultMessage="Frequently asked question"/></h3>
                 <Droppable droppableId="droppable-1">
                     {(provided, _) => (
                         <div ref={provided.innerRef} {...provided.droppableProps}>
