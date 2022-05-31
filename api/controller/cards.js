@@ -1,17 +1,22 @@
-// import cards from "../model/cards.json";
+/*
+  CONTROLLER FUNCTIONS - send data
+  --------------------------------
+  contributors:
+    - Yun-Chien (write data in cards.json and define an API to send data)
+*/
+
+
 const cards = require('../model/cards.json');
 
 var express = require('express');
 var router = express.Router();
 
-
+// get cards data in different id
 router.get('/:id', function(req, res) {
-//     res.send(cards[req.params.id]);
     res.status(200).json(cards[req.params.id]);
-//   res.send('user' + req.params.id);
 });
 
-/* GET users listing. */
+// get cards data
 router.get('/', function(req, res, next) {
   res.status(200).json(cards);
 });

@@ -48,7 +48,7 @@ const fr ={
     "fork":"fourchette",
     "knife":"couteau",
     "menu":"menu",
-    "beef noodles":"nouilles au boeuf",
+    "beefnoodles":"nouilles au boeuf",
     "pandas":"pandas",
     "bear":"ours",
     "polarbear":"ours polaire",
