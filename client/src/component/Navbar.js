@@ -1,3 +1,10 @@
+/*
+  CONTROLLER FUNCTIONS - Navigation bar in every page
+  --------------------------------
+  contributors:
+    - Yun-Chien (Navigation bar)
+*/
+
 import React from 'react';
 import { NavLink, Link } from "react-router-dom";
 import {Nav,Navbar, NavDropdown} from "react-bootstrap";
@@ -7,6 +14,7 @@ import './NavBar.css';
 import {FormattedMessage} from "react-intl";
 
 
+// Use react-bootstrap package to implement the navigation bar
 const NavBar= ({setLocale}) =>{
     return (
         <Navbar bg="nav_bg" sticky="top" expand="lg">
@@ -59,18 +67,12 @@ const NavBar= ({setLocale}) =>{
                             <FormattedMessage id = "english" defaultMessage="English"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item onClick={()=> setLocale('zh')}>
-                            <FormattedMessage id = "mandarin" defaultMessage="Mandarin"/>
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={()=> setLocale('es')}>
                             <FormattedMessage id = "spanish" defaultMessage="Spanish"/>
                         </NavDropdown.Item>
                     </NavDropdown>
-
                 </Nav>
             </Navbar.Collapse>
-
         </Navbar>
     );
 }

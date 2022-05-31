@@ -1,34 +1,42 @@
+/*
+  CONTROLLER FUNCTIONS - Learning page
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
 import React from 'react';
 import Card from '../component/Card';
 import '../style/Learning1.css';
 
-let Lesson2 = [];
+// get data from the backend and save them to Lesson4
+let Lesson4 = [];
 const getData = () => {
-    fetch('http://localhost:9000/cards/Campus',{
+    fetch('http://localhost:9000/cards/Zoo',{
         method:'GET',
         header: new Headers({'Content-Type': 'application/json'})})
     .then((res) => res.json())
     .then(data => {
-        Lesson2 = [];
+        Lesson4 = [];
         data.forEach(
         number => {
                      let obj = {title:number.name, content:number.mandarin } ;
-                      console.log(number);
-                      Lesson2.push(obj);
+                      Lesson4.push(obj);
                     });
     }).catch(e =>{
         //Error
     });
 }
 getData();
-const Learning2 = () =>{
+
+// Use Card component to show all the data from the backend in Lesson4
+const Learning4= () =>{
     return (
         <div className="card-wrapper">
-            {Lesson2.map(({ title, content}) => (
+            {Lesson4.map(({ title, content}) => (
                 <Card title={title} content={content} />
             ))}
         </div>
 
     );
 }
-export default Learning2;
+export default Learning4;

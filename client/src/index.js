@@ -1,23 +1,29 @@
+/*
+  CONTROLLER FUNCTIONS - Set Language
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
+
 import React,{ useState} from 'react';
-// import ReactDOM from 'react-dom/client';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './pages/App.js';
 import reportWebVitals from './reportWebVitals';
-// import { BrowserRouter as Router } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { IntlProvider} from "react-intl";
 import locale_en from "./i18n/en.js";
 import locale_fr from "./i18n/fr.js";
-import locale_zh from "./i18n/zh.js";
 import locale_es from "./i18n/es.js";
 
+
+// use dictionary to store the path of the language data
 const data = {
     'en':locale_en,
     'fr':locale_fr,
-    'zh':locale_zh,
     'es':locale_es
 }
+
+// use react-intl to set locale language
 const Root = () =>{
     const [locale,setLocale] = useState(navigator.language);
 
@@ -29,9 +35,6 @@ const Root = () =>{
     )
 }
 
-// ReactDOM.render(
-//     <Root/>,
-//     document.getElementById('root'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Root/>

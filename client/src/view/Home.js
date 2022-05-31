@@ -1,8 +1,17 @@
+/*
+  CONTROLLER FUNCTIONS - React router dom, Home page
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
+
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import bg3 from "../image/home_bg3.jpg";
 import "../style/Home.css";
 import {icons} from "react-icons";
+
+// 1. Use react-bootstrap component like Carousel to change different frames in the website.
 
 const Home = () =>{
     return (

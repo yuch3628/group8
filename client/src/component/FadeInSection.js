@@ -1,6 +1,14 @@
+/*
+  CONTROLLER FUNCTIONS - Fade In Effect
+  --------------------------------
+  contributors:
+    - Yun-Chien (Fade In functionality)
+*/
+
 import React from 'react';
 import './FadeInSection.css';
 
+// implement Fade In effect when element is visible
 function FadeInSection(props) {
     const [isVisible, setVisible] = React.useState(false);
     const domRef = React.useRef();

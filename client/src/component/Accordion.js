@@ -1,3 +1,10 @@
+/*
+  CONTROLLER FUNCTIONS - Learning page
+  --------------------------------
+  contributors:
+    - Yun-Chien (Accordion in FAQ page)
+*/
+
 import React, {useState} from "react";
 import {FormattedMessage} from "react-intl";
 import {addLocalData} from "react-intl";
@@ -6,6 +13,7 @@ export const ItemTypes = {
     CARD : 'Card',
 }
 
+// implement show and hide section of Accordion and put all the content about question and answer
 const Accordion = ( {title,content, props})=>{
     const [isActive, setIsActive] = useState(false);
     return (

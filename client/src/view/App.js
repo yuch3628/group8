@@ -1,13 +1,19 @@
+/*
+  CONTROLLER FUNCTIONS - React router dom
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
+
+// Use react-router-dom to switch page and set language
 import React from "react";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router} from "react-router-dom";
-import './App.css';
-import NavBar from "./component/NavBar.js";
-import Routes from "./Routes";
-import ScrollToTop from "./component/ScrollToTop.js";
+import '../style/App.css';
+import NavBar from "../component/NavBar.js";
+import Routes from "../Routes.js";
+import ScrollToTop from "../component/ScrollToTop.js";
 
 function App({setLocale}) {
-//     getData();
     return (
         <Router>
             <ScrollToTop>

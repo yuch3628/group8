@@ -1,12 +1,20 @@
+/*
+  CONTROLLER FUNCTIONS - Flip Word Card
+  --------------------------------
+  contributors:
+    - Yun-Chien ( Card in Lesson page)
+*/
+
 import { useRef } from 'react';
 import React from 'react';
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-// import bg from '../image/home_bg2.jpg';
 import {FormattedMessage} from "react-intl";
 import './Card.css';
 
+// implement flip word card
+// front side put image and word in preference language
+// back side put the Mandarin words and sound
 const Card = ({title, content}) => {
-//     const audio_path = 'example.mp3';
     title = title.replace(/ /g, "");
     const audioUrl = require('../audio/'+title+'.mp3');
     const imageUrl = require('../image/'+title+'.jpg');

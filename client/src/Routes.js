@@ -1,7 +1,14 @@
+/*
+  CONTROLLER FUNCTIONS - Route
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
+
+
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-// import NotFound from "./containers/NotFound";
-import About from "./pages/About"
+import About from "./pages/About";
 import Home from "./pages/Home";
 import Challenge from "./pages/Challenge";
 import Learning1 from "./pages/Learning1";
@@ -12,6 +19,7 @@ import Learning5 from "./pages/Learning5";
 import Learning6 from "./pages/Learning6";
 import Faq from "./pages/Faq.js";
 
+// Use react-router-dom to set the routes of each page
 export default function Routes(){
     return(
         <Switch>
