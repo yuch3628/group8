@@ -129,7 +129,7 @@ div.matching_title{
 div.game{
 	display: flex;
 	flex: 1 1 auto;
-    background-color: ghostwhite;
+    background-color: white;
     margin-left: 8%;
     margin-right: 8%;
 }

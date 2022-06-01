@@ -27,7 +27,7 @@ const NavBar= ({setLocale}) =>{
                     <Nav.Link as={NavLink} to ="/about" className='nav_context'>
                         <FormattedMessage id = "aboutcourse" defaultMessage="About course"/>
                     </Nav.Link>
-                    <NavDropdown title={<span className="nav-dropdown">Learning</span>}>
+                    <NavDropdown title={<span className="nav-dropdown"><FormattedMessage id = "learning" defaultMessage="Learning"/></span>}>
                         <NavDropdown.Item as={Link} to ="/learning/lesson1">
                             <FormattedMessage id = "lesson1" defaultMessage="Supermarket"/>
                         </NavDropdown.Item>
@@ -52,9 +52,34 @@ const NavBar= ({setLocale}) =>{
                             <FormattedMessage id = "lesson6" defaultMessage="Soft drinks"/>
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link as={NavLink} to ="/challenge" className='nav_context'>
-                        <FormattedMessage id = "challenge" defaultMessage="Challenge"/>
-                    </Nav.Link>
+{/*                     <Nav.Link as={NavLink} to ="/challenge" className='nav_context'> */}
+{/*                         <FormattedMessage id = "challenge" defaultMessage="Challenge"/> */}
+{/*                     </Nav.Link> */}
+                    <NavDropdown title={<span className="nav-dropdown"><FormattedMessage id = "challenge" defaultMessage="Challenge"/></span>}>
+                        <NavDropdown.Item as={Link} to ="/challenge/challenge1">
+                            <FormattedMessage id = "lesson1" defaultMessage="Supermarket"/>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                         <NavDropdown.Item as={Link} to ="/challenge/challenge2">
+                             <FormattedMessage id = "lesson2" defaultMessage="Campus"/>
+                         </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to ="/challenge/challenge3">
+                            <FormattedMessage id = "lesson3" defaultMessage="Restaurant"/>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to ="/challenge/challenge4">
+                            <FormattedMessage id = "lesson4" defaultMessage="Zoo"/>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to ="/challenge/challenge5">
+                            <FormattedMessage id = "lesson5" defaultMessage="Breakfast"/>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item as={Link} to ="/challenge/challenge6">
+                            <FormattedMessage id = "lesson6" defaultMessage="Soft drinks"/>
+                        </NavDropdown.Item>
+                    </NavDropdown>
                     <Nav.Link as={NavLink} to ="/faq" className='nav_context'>
                         <FormattedMessage id = "faq" defaultMessage="FAQ"/>
                     </Nav.Link>

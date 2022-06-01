@@ -2,6 +2,7 @@ const es ={
     "aboutcourse":"Acerca del curso",
     "challenge":"Desafío",
     "faq":"FAQ",
+    "learning":"Aprendizaje",
     "language":"Idioma",
     "swedish":"Sueca",
     "english":"Inglesa",
