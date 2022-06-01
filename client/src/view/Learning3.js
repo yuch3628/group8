@@ -1,7 +1,14 @@
+/*
+  CONTROLLER FUNCTIONS - Learning page
+  --------------------------------
+  contributors:
+    - Yun-Chien (frontend functionality)
+*/
 import React from 'react';
 import Card from '../component/Card';
 import '../style/Learning1.css';
 
+// get data from the backend and save them to Lesson3
 let Lesson3 = [];
 const getData = () => {
     fetch('http://localhost:9000/cards/Restaurant',{
@@ -21,6 +28,8 @@ const getData = () => {
     });
 }
 getData();
+
+// Use Card component to show all the data from the backend in Lesson3
 const Learning3 = () =>{
     return (
         <div className="card-wrapper">
