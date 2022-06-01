@@ -163,12 +163,16 @@ class Match extends React.Component{
 			proDOM.disabled = true;
 			ansDOM.style.backgroundColor = '';
 			proDOM.style.backgroundColor = '';
-
+			let audio = new Audio(require('..\\audio\\mixkit-correct-answer-reward-952.wav'));
+			audio.play();
 		}
 		else {
 			// Wrong!!!
 			ansDOM.style.backgroundColor = 'red';
 			proDOM.style.backgroundColor = 'red';
+			
+			let audio = new Audio(require('..\\audio\\mixkit-game-show-wrong-answer-buzz-950.wav'));
+			audio.play();
 
 		}			
 		this.setState({
