@@ -70,11 +70,14 @@ class Match extends React.Component{
 			answersOrder: Array(4).fill(null),
 			choosePromptId: "",
 			chooseAnswerId: "",
-			userMatches: Array(4).fill([null,null]),
-			gameHeight: 0,
-			buttonYPoints: Array(4).fill(null),
+			userMatches: Array(4).fill([null,null]), // Y of prompt, Y of answer, is Correct?, transparent
+			correctCounter: 0,
+			gameHeight: 0, // the canvas height
+			buttonYPoints: Array(4).fill(null), // for draw line between button
 			totalTime: 60000, // ms
 			remainingTime: 60000, // ms
+			stop: false, // if true, stop timer and draw all canvas
+			rewards: Array(), // reward text, proportion of X [0,1], proportion of Y [0,1]
 		};
 	}
 	
@@ -153,11 +156,14 @@ class Match extends React.Component{
 		let pro = this.state.choosePromptId.slice(-1);
 		let ansDOM = document.getElementById(this.state.chooseAnswerId);
 		let proDOM = document.getElementById(this.state.choosePromptId);
+		let rewards = this.state.rewards;
+		let remainingTime = this.state.remainingTime;
 		const oldMatches = this.state.userMatches;
 		console.log("ANS ID:" + ans + "===" +this.state.answersOrder[ans]);
 		console.log("PRO ID:" + pro + "===" + this.state.promptsOrder[pro]);
 		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
 			// Correct~~~
+			rewards.push(['+5 sec', Math.random(), 0.5]);
 			oldMatches.push([pro, ans]);
 			ansDOM.disabled = true;
 			proDOM.disabled = true;
@@ -165,6 +171,16 @@ class Match extends React.Component{
 			proDOM.style.backgroundColor = '';
 			let audio = new Audio(require('..\\audio\\mixkit-correct-answer-reward-952.wav'));
 			audio.play();
+			const userMatches = this.state.userMatches;
+			userMatches.push([pro, ans, true, 1.0]);
+			remainingTime+=5000;
+			if(remainingTime>60000) remainingTime = 60000;
+			this.setState({
+				userMatches:userMatches,
+				rewards: rewards,
+				remainingTime: remainingTime,
+				correctCounter: this.state.correctCounter + 1,
+			});
 		}
 		else {
 			// Wrong!!!
@@ -174,6 +190,18 @@ class Match extends React.Component{
 			let audio = new Audio(require('..\\audio\\mixkit-game-show-wrong-answer-buzz-950.wav'));
 			audio.play();
 
+			rewards.push(['-5 sec', Math.random(), 0.5]);
+
+			const userMatches = this.state.userMatches;
+			userMatches.push([pro, ans, false, 1.0])
+			remainingTime-=5000;
+			if(remainingTime<0) remainingTime = 0;
+			this.setState({
+				userMatches:userMatches,
+				rewards: rewards,
+				remainingTime: remainingTime,
+			});
+
 		}			
 		this.setState({
 			chooseAnswerId: "",
@@ -182,14 +210,132 @@ class Match extends React.Component{
 		});
 	}
 
+	setFPS(){
+		setInterval(this.draw.bind(this), 16.6667); // 60 fps
+	}
+
+	draw(){
+		if(this.state.stop == false){
+			var canvas = document.getElementById('challenge');
+			if(canvas.height != this.state.gameHeight){
+				this.canvasResize();
+			}
+			if(canvas != null && canvas.getContext){
+				const remainingTime = this.state.remainingTime;
+				const userMatches = this.state.userMatches;
+				var ctx = canvas.getContext('2d');
+				ctx.clearRect(0,0, canvas.width, canvas.height);
+				// draw Line
+		        ctx.lineWidth = 15;
+		       	ctx.lineCap = 'round';
+		       	let waitRemoveMatches = new Array();
+		       	for(let i = 0; i < userMatches.length; ++i){
+					if(userMatches[i][2] === true) // correct answer
+			       		ctx.strokeStyle = 'rgba(128, 200, 128, '+ userMatches[i][3] +')';
+			       	else if(userMatches[i][2] === false){
+			       		ctx.strokeStyle = 'rgba(255, 0, 0, '+ userMatches[i][3] +')';
+			       		userMatches[i][3] -= 0.03;
+			       		if(userMatches[i][3] < 0){
+			       			console.log("remove:" + i);
+			       			//waitRemoveMatches.push(userMatches[i]);
+			       		}
+			       	}
+	       			ctx.beginPath();
+	       			ctx.moveTo(20, this.state.buttonYPoints[userMatches[i][0]]);
+    				ctx.lineTo(canvas.width - 20, this.state.buttonYPoints[userMatches[i][1]]);
+    				ctx.stroke();
+		       	}
+
+		       	waitRemoveMatches.forEach((remove)=>{
+		       		userMatches.splice(remove);
+		       	});
+
+		       	/*this.state.userMatches.forEach((match) => {
+			       		if(match[2] == true) // correct answer
+				       		ctx.strokeStyle = 'rgba(0, 255, 0, '+ match[3] +')';
+				       	else
+				       		ctx.strokeStyle = 'rgba(255, 0, 0, '+ match[3] +')';
+		       			ctx.beginPath();
+		       			ctx.moveTo( 20, this.state.buttonYPoints[match[0]]);
+	    				ctx.lineTo( canvas.width - 20, this.state.buttonYPoints[match[1]]);
+	    				ctx.stroke();
+		       		}
+		       	)*/
+
+		       	// draw timer
+		        this.redrawTimer(60000, remainingTime);
+
+		        // draw rewards
+		        let rewards = this.state.rewards;
+		        let waitRemoveRewards = new Array();
+		        for(let i = 0; i < rewards.length; ++i){
+		        	this.drawRewards(rewards[i][0], rewards[i][1], rewards[i][2]);
+		        	rewards[i][2]+=0.005;
+		        	if(rewards[i][2] > 1){
+		        		waitRemoveRewards.push(rewards[i]);
+		        	}
+		        }
+		        waitRemoveRewards.forEach((remove)=>{
+		        	rewards.splice(remove, 1);
+		        });
+		        if(this.state.correctCounter == 4)
+			        this.setState({
+			        	stop: true,
+			        });
+
+			   	this.setState({
+		        	remainingTime: remainingTime - 16.6667,
+		        	rewards: rewards,
+		        	userMatches: userMatches
+		        });
+			} else {
+				// if not supported...
+				console.log("ERROR!!!");
+			}
+		}
+	}
+
+	redrawTimer(totalTime, remainingTime){
+	var canvas = document.getElementById('timer');
+	if(canvas != null && canvas.getContext){
+		var ctx = canvas.getContext('2d');
+		var remaining = remainingTime / totalTime;
+		var lingrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+		if(1 - remaining < 0.99 && 1 - remaining > 0.01 ){
+			lingrad.addColorStop(0, '#FF0000'); // red
+			lingrad.addColorStop(1 - remaining - 0.01, '#FF0000');
+			lingrad.addColorStop(1 - remaining, '#FFFFFF');
+			lingrad.addColorStop(1 - remaining + 0.01, '#00FF00');
+			lingrad.addColorStop(1, '#00FF00');
+		} else 
+			lingrad.addColorStop(0, '#FF0000'); // red
+  			ctx.fillStyle = lingrad;
+  			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		}
+	}
+
+	drawRewards(rewardTime, xPos, yPos){
+		let canvas = document.getElementById('challenge');
+		let ctx = canvas.getContext('2d');
+		ctx.font = '48px serif';
+		if(rewardTime.at(0)=='+')
+			ctx.fillStyle = 'limegreen'
+		else
+			ctx.fillStyle = 'red'
+		ctx.fillText(rewardTime, canvas.width*xPos, canvas.height*yPos);
+	}
+
 	componentDidMount(){
 		const gameHeight = this.divElement.clientHeight;
 		const buttonYPoints = Array(4).fill(0);
-		var point = 0;
-		for(var i = 0; i < 4; ++i){
-			point += gameHeight / 4;
-			buttonYPoints[i] = point;
+		let point = 0;
+		console.log(gameHeight);
+		for(let i = 0; i < 8; ++i){
+			point += gameHeight / 8;
+			if(i % 2 == 0)
+				buttonYPoints[i/2] = point;
 		}
+		console.log(buttonYPoints);
 		this.setState({ 
 			gameHeight: gameHeight, 
 			buttonYPoints: buttonYPoints,
@@ -197,6 +343,7 @@ class Match extends React.Component{
 		});
 		canvasFitsParentDOM();
 		this.prepareData();
+		this.setFPS();
 	}
 	
 	async prepareData(){
@@ -221,10 +368,24 @@ class Match extends React.Component{
 		});
 	}
 
+	canvasResize(){
+		const gameHeight = this.divElement.clientHeight;
+		const buttonYPoints = Array(4).fill(0);
+		let point = 0;
+		for(let i = 0; i < 8; ++i){
+			point += gameHeight / 8;
+			if(i % 2 == 0)
+				buttonYPoints[i/2] = point;
+		}
+		this.setState({ 
+			gameHeight: gameHeight, 
+			buttonYPoints: buttonYPoints,
+		});
+	}
+
 	render(){
 		return(
 			<div className="Matching">
-				<div className="matching_title">Matching</div>
 				<div className="game" ref={(divElement) => {this.divElement = divElement} }>
 					<div className="div_prompts">
 					<div>{this.renderPrompt(0, this.state.prompts[0])}</div>
@@ -271,28 +432,6 @@ function canvasFitsParentDOM(){
  	}
 }
 
-function setFPS(){
-	setInterval(draw, 16.6667); // 60 fps
-}
-
-var i = 0;
-function draw(){
-	i++;
-	var canvas = document.getElementById('challenge');
-	if(canvas != null && canvas.getContext){
-		var ctx = canvas.getContext('2d');
-		ctx.clearRect(0,0,1110,902);
-		ctx.fillStyle = 'rgb(200, 0, 0)';
-        ctx.fillRect(10 + i, 10 + i, 50, 50);
-        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-        ctx.fillRect(30 + i, 30 + i, 50, 50);
-        redrawTimer(60000, (60000 - (i * 16.6667)));
-	} else {
-		// if not supported...
-		console.log("ERROR!!!");
-	}
-}
-
 function drawLine(){
 	var canvas = document.getElementById('challenge');
 	if(canvas != null && canvas.getContext){
@@ -307,43 +446,6 @@ function drawLine(){
 		console.log("ERROR!!!");
 	}
 }
-
-// function drawTimer(){
-// 	var canvas = document.getElementById('timer');
-// 	if(canvas != null && canvas.getContext){
-// 		var ctx = canvas.getContext('2d');
-// 		var lingrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-// 		lingrad.addColorStop(0, '#FFFFFF');
-// 		lingrad.addColorStop(0.7, '#00FF00');
-// 		lingrad.addColorStop(1, '#00FF00');
-//   		ctx.fillStyle = lingrad;
-//   		ctx.fillRect(0, 0, canvas.width, canvas.height);
-// 	} else {
-// 		console.log("ERROR!!!");
-// 	}
-// }
-
-function redrawTimer(totalTime, remainingTime){
-	var canvas = document.getElementById('timer');
-	if(canvas != null && canvas.getContext){
-		var ctx = canvas.getContext('2d');
-		var remaining = remainingTime / totalTime;
-		var lingrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-		if(1 - remaining < 0.99 && 1 - remaining > 0.01 ){
-			lingrad.addColorStop(0, '#FF0000'); // red
-			lingrad.addColorStop(1 - remaining - 0.01, '#FF0000');
-			lingrad.addColorStop(1 - remaining, '#FFFFFF');
-			lingrad.addColorStop(1 - remaining + 0.01, '#00FF00');
-			lingrad.addColorStop(1, '#00FF00');
-		} else 
-			lingrad.addColorStop(0, '#00FF00'); // red
-  		ctx.fillStyle = lingrad;
-  		ctx.fillRect(0, 0, canvas.width, canvas.height);
-	}
-}
-
-
-
 
 async function getData() {
 	var lessonNumber = 0;
@@ -405,12 +507,9 @@ function shuffleArray(length, oldArray){
 function main(){
 	if (document.readyState !== 'loading') { // prevents the Event 'DOMContentLoaded' not being fired
 		canvasFitsParentDOM();
-		setFPS();
 	} else {
 		document.addEventListener("DOMContentLoaded", canvasFitsParentDOM);
-		document.addEventListener("DOMContentLoaded", setFPS);
 	}
-
 	// fits the canvas 
 	window.addEventListener("resize", canvasFitsParentDOM);
 }

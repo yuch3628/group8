@@ -16,6 +16,10 @@ import {FormattedMessage} from "react-intl";
 
 // Use react-bootstrap package to implement the navigation bar
 const NavBar= ({setLocale}) =>{
+    const reloadFunc = (i) =>{
+        window.location.href="http://localhost:3000/challenge?lesson="+i;
+        //window.location.reload(true);
+    }
     return (
         <Navbar bg="nav_bg" sticky="top" expand="lg">
             <Navbar.Brand>
@@ -56,27 +60,27 @@ const NavBar= ({setLocale}) =>{
 {/*                         <FormattedMessage id = "challenge" defaultMessage="Challenge"/> */}
 {/*                     </Nav.Link> */}
                     <NavDropdown title={<span className="nav-dropdown"><FormattedMessage id = "challenge" defaultMessage="Challenge"/></span>}>
-                        <NavDropdown.Item as={Link} to ="/challenge/challenge1">
+                        <NavDropdown.Item as={Link} to ="?lesson=1" onClick={()=>{reloadFunc(1)}}>
                             <FormattedMessage id = "lesson1" defaultMessage="Supermarket"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                         <NavDropdown.Item as={Link} to ="/challenge/challenge2">
+                         <NavDropdown.Item as={Link} to ="/challenge?lesson=2" onClick={()=>{reloadFunc(2)}}>
                              <FormattedMessage id = "lesson2" defaultMessage="Campus"/>
                          </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/challenge/challenge3">
+                        <NavDropdown.Item as={Link} to ="/challenge?lesson=3" onClick={()=>{reloadFunc(3)}}>
                             <FormattedMessage id = "lesson3" defaultMessage="Restaurant"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/challenge/challenge4">
+                        <NavDropdown.Item as={Link} to ="/challenge?lesson=4" onClick={()=>{reloadFunc(4)}}>
                             <FormattedMessage id = "lesson4" defaultMessage="Zoo"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/challenge/challenge5">
+                        <NavDropdown.Item as={Link} to ="/challenge?lesson=5" onClick={()=>{reloadFunc(5)}}>
                             <FormattedMessage id = "lesson5" defaultMessage="Breakfast"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item as={Link} to ="/challenge/challenge6">
+                        <NavDropdown.Item as={Link} to ="/challenge?lesson=6" onClick={()=>{reloadFunc(6)}}>
                             <FormattedMessage id = "lesson6" defaultMessage="Soft drinks"/>
                         </NavDropdown.Item>
                     </NavDropdown>
