@@ -10,7 +10,7 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 import About from "./view/About";
 import Home from "./view/Home";
-import Challenge from "./pages/Challenge";
+import Challenge from "./view/Challenge";
 import Learning1 from "./view/Learning1";
 import Learning2 from "./view/Learning2";
 import Learning3 from "./view/Learning3";
