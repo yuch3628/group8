@@ -223,19 +223,19 @@ class Match extends React.Component{
 				<div className="matching_title">Matching</div>
 				<div className="game" ref={(divElement) => {this.divElement = divElement} }>
 					<div className="div_prompts">
-					{this.renderPrompt(0, this.state.prompts[0])}
-					{this.renderPrompt(1, this.state.prompts[1])}
-					{this.renderPrompt(2, this.state.prompts[2])}
-					{this.renderPrompt(3, this.state.prompts[3])}
+					<div>{this.renderPrompt(0, this.state.prompts[0])}</div>
+					<div>{this.renderPrompt(1, this.state.prompts[1])}</div>
+					<div>{this.renderPrompt(2, this.state.prompts[2])}</div>
+					<div>{this.renderPrompt(3, this.state.prompts[3])}</div>
 					</div>
 					<div className="challenge">
 						<canvas className="challenge" id="challenge"/>
 					</div>
 					<div className="div_answers">
-					{this.renderAnswer(0)}
-					{this.renderAnswer(1)}
-					{this.renderAnswer(2)}
-					{this.renderAnswer(3)}
+					<div>{this.renderAnswer(0)}</div>
+					<div>{this.renderAnswer(1)}</div>
+					<div>{this.renderAnswer(2)}</div>
+					<div>{this.renderAnswer(3)}</div>
 					</div>
 				</div>
 				<div className="progress_bar">
@@ -372,6 +372,7 @@ async function getData() {
     return(Lesson);   
 }
 
+// Fisher-Yates
 function shuffleNewArray(length){
 	var array = new Array();
 	for(let i = 0; i < length; ++i){
