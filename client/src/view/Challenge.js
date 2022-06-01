@@ -317,11 +317,14 @@ class Match extends React.Component{
 	drawRewards(rewardTime, xPos, yPos){
 		let canvas = document.getElementById('challenge');
 		let ctx = canvas.getContext('2d');
+
+		ctx.strokeStyle = 'black';
 		ctx.font = '48px serif';
 		if(rewardTime.at(0)=='+')
 			ctx.fillStyle = 'limegreen'
 		else
 			ctx.fillStyle = 'red'
+
 		ctx.fillText(rewardTime, canvas.width*xPos, canvas.height*yPos);
 	}
 
@@ -369,18 +372,20 @@ class Match extends React.Component{
 	}
 
 	canvasResize(){
-		const gameHeight = this.divElement.clientHeight;
-		const buttonYPoints = Array(4).fill(0);
-		let point = 0;
-		for(let i = 0; i < 8; ++i){
-			point += gameHeight / 8;
-			if(i % 2 == 0)
-				buttonYPoints[i/2] = point;
+		if(this.divElement != null){
+			const gameHeight = this.divElement.clientHeight;
+			const buttonYPoints = Array(4).fill(0);
+			let point = 0;
+			for(let i = 0; i < 8; ++i){
+				point += gameHeight / 8;
+				if(i % 2 == 0)
+					buttonYPoints[i/2] = point;
+			}
+			this.setState({ 
+				gameHeight: gameHeight, 
+				buttonYPoints: buttonYPoints,
+			});
 		}
-		this.setState({ 
-			gameHeight: gameHeight, 
-			buttonYPoints: buttonYPoints,
-		});
 	}
 
 	render(){
