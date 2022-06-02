@@ -238,7 +238,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 				// draw Line
 		        ctx.lineWidth = 15;
 		       	ctx.lineCap = 'round';
-		       	let waitRemoveMatches = new Array(); // records the matches that should be remov
+		       	let waitRemoveMatches = new Array(); // records the matches that should be removed
 		       	for(let i = 0; i < userMatches.length; ++i){
 					if(userMatches[i][2] === true) // correct answer
 			       		ctx.strokeStyle = 'rgba(128, 200, 128, '+ userMatches[i][3] +')';
@@ -247,7 +247,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 			       		userMatches[i][3] -= 0.03; // fade out
 			       		if(userMatches[i][3] < 0){
 			       			// if the value less than 0, means that the match line no needs to be drawn, remove from array to prevent memory overflow
-			       			waitRemoveMatches.push(userMatches[i]); // pushs into array, removes later
+			       			waitRemoveMatches.push(i); // pushs index into array, removes later
 			       		}
 			       	}
 	       			ctx.beginPath();
@@ -255,8 +255,9 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
     				ctx.lineTo(canvas.width - 20, this.state.buttonYPoints[userMatches[i][1]]);
     				ctx.stroke();
 		       	}
-		       	waitRemoveMatches.forEach((remove)=>{
-		       		userMatches.splice(remove);
+
+		       	waitRemoveMatches.forEach((removeIndex)=>{
+		       		userMatches.splice(removeIndex,1);
 		       	});
 
 		       	// draw line end
@@ -272,11 +273,11 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		        	rewards[i][2]+=0.005; // move down
 		        	if(rewards[i][2] > 1){
 		        		// if the value greater than 1, means that the rewards text already outside the boundary, remove from array to prevent memory overflow
-		        		waitRemoveRewards.push(rewards[i]);
+		        		waitRemoveRewards.push(i); // pushs index into array, removes later
 		        	}
 		        }
-		        waitRemoveRewards.forEach((remove)=>{
-		        	rewards.splice(remove, 1);
+		        waitRemoveRewards.forEach((removeIndex)=>{
+		        	rewards.splice(removeIndex, 1); // 
 		        });
 		        // draw rewards end
 
