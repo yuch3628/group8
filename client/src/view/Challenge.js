@@ -1,9 +1,15 @@
+/*
+  CONTROLLER FUNCTIONS - challenge page
+  --------------------------------
+  contributors:
+    - Jing-Tinng (challenge render and functionality)
+*/
+
 import React from 'react';
 import "../style/Challenge.css"
 import {FormattedMessage} from "react-intl"
 import {useIntl, IntlProvider} from "react-intl";
 
-//import ReactDOM from 'react-dom';
 const Challenge = () =>{
     return (
         <div>
@@ -12,9 +18,10 @@ const Challenge = () =>{
     );
 }
 
+// the buttons of challenge options
 function Square(props) {
-	const intl = useIntl();
-	if(props.word!=null && intl.locale != 'zh')
+	const intl = useIntl(); // get the global language setting
+	if(props.word!=null && intl.locale != 'zh') // if the language setting is not traditional chinese
 		return(
 			<button 
 			className = {"square " + props.className}
@@ -24,7 +31,7 @@ function Square(props) {
 			<FormattedMessage id={props.word} defaultMessage={props.word}/>
 			</button>
 		);
-	else if(props.word!=null && intl.locale == 'zh')
+	else if(props.word!=null && intl.locale == 'zh') // if the language setting is traditional chinese
 		return(
 			<button 
 			className = {"square " + props.className}
@@ -34,7 +41,7 @@ function Square(props) {
 			{props.word}
 			</button>
 		);
-	else
+	else // if button has its own word, don't translate to other language
 		return(
 			<button 
 			className = {"square " + props.className}
@@ -45,12 +52,9 @@ function Square(props) {
 		);
 }
 
-class Timer extends React.Component{
+class Timer extends React.Component{ // uses to render timer canvas
 	constructor(props){
 		super(props);
-		this.state = {
-			remainTime: 20000,
-		}
 	}
 
 	render(){
@@ -60,28 +64,29 @@ class Timer extends React.Component{
 	}
 }
 
-class Match extends React.Component{
+class Match extends React.Component{ // the main challenge mechnism and DOM element render
 	constructor(props){
 		super(props);
 		this.state = {
-			prompts: Array(4).fill(null),
-			answers: Array(4).fill(null),
-			promptsOrder: Array(4).fill(null),
-			answersOrder: Array(4).fill(null),
-			choosePromptId: "",
-			chooseAnswerId: "",
+			prompts: Array(4).fill(null), // the left side options
+			answers: Array(4).fill(null), // the right side options
+			promptsOrder: Array(4).fill(null), // the order after shuffled
+			answersOrder: Array(4).fill(null), // the order after shuffled
+			choosePromptId: "", // record DOM id when user clicks a prompt
+			chooseAnswerId: "", // record DOM id then user clicks a answer
 			userMatches: Array(4).fill([null,null]), // Y of prompt, Y of answer, is Correct?, transparent
-			correctCounter: 0,
+			correctCounter: 0, // count how many correct matches
 			gameHeight: 0, // the canvas height
 			buttonYPoints: Array(4).fill(null), // for draw line between button
 			totalTime: 60000, // ms
 			remainingTime: 60000, // ms
 			stop: false, // if true, stop timer and draw all canvas
 			rewards: Array(), // reward text, proportion of X [0,1], proportion of Y [0,1]
-			interval: null,
+			interval: null, // records the returned id of setInterval(), used to clearInterval() when firing ComponentWillUnmount()
 		};
 	}
 	
+	// render the left side options, needs to be translated
 	renderPrompt(i, word){
 		return (
 			<Square 
@@ -97,6 +102,7 @@ class Match extends React.Component{
 		);
 	}
 
+	// render the right side options
 	renderAnswer(i){
 		return (
 			<Square
@@ -109,12 +115,14 @@ class Match extends React.Component{
 			);
 	}
 
+	// render the timer on the bottom of the challenge page
 	renderTimer(){
 		return(
 			<Timer id='timer' />
 			);
 	}
 	
+	// sets the right side button color
 	async setPromptColor(event){
 		await this.setState(
 		{
@@ -130,6 +138,7 @@ class Match extends React.Component{
 			this.checkAnswer();
 	}
 
+	// sets the right side button colr
 	async setAnswerColor(event){
 		await this.setState(
 		{
@@ -145,12 +154,7 @@ class Match extends React.Component{
 			this.checkAnswer();
 	}
 
-	setPrompts(promptsArray){
-		this.setState({
-			prompts: promptsArray,
-		});
-	}
-
+	// checks the user match, and draw the game canvas 
 	checkAnswer(){
 		let ans = this.state.chooseAnswerId.slice(-1);
 		let pro = this.state.choosePromptId.slice(-1);
@@ -161,17 +165,17 @@ class Match extends React.Component{
 		const oldMatches = this.state.userMatches;
 		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
 			// Correct~~~
-			rewards.push(['+5 sec', Math.random(), 0.5]);
+			rewards.push(['+5 sec', Math.random(), 0.5]); // push rewards text and its coordinates into array
 			oldMatches.push([pro, ans]);
 			ansDOM.disabled = true;
 			proDOM.disabled = true;
 			ansDOM.style.backgroundColor = '';
 			proDOM.style.backgroundColor = '';
-			let audio = new Audio(require('../audio/mixkit-correct-answer-reward-952.wav'));
+			let audio = new Audio(require('../audio/mixkit-correct-answer-reward-952.wav')); // play a corrent match sound effect
 			audio.play();
 			const userMatches = this.state.userMatches;
 			userMatches.push([pro, ans, true, 1.0]);
-			remainingTime+=5000;
+			remainingTime+=5000; // add remaining time, 5 seconds
 			if(remainingTime>60000) remainingTime = 60000;
 			this.setState({
 				userMatches:userMatches,
@@ -185,14 +189,14 @@ class Match extends React.Component{
 			ansDOM.style.backgroundColor = 'red';
 			proDOM.style.backgroundColor = 'red';
 			
-			let audio = new Audio(require('../audio/mixkit-game-show-wrong-answer-buzz-950.wav'));
+			let audio = new Audio(require('../audio/mixkit-game-show-wrong-answer-buzz-950.wav')); // play a wrong match sound effect
 			audio.play();
 
-			rewards.push(['-5 sec', Math.random(), 0.5]);
+			rewards.push(['-5 sec', Math.random(), 0.5]); // push rewards text and its coordinates into array
 
 			const userMatches = this.state.userMatches;
 			userMatches.push([pro, ans, false, 1.0])
-			remainingTime-=5000;
+			remainingTime-=5000; // decrease remaining time, 5 seconds
 			if(remainingTime<0) remainingTime = 0;
 			this.setState({
 				userMatches:userMatches,
@@ -208,9 +212,10 @@ class Match extends React.Component{
 		});
 	}
 
+	// sets interval, each time firing the function this.draw() will redraw the game canvas and timer canvas
 	setFPS(){
-		let interval;
-		if(!interval){
+		let interval; // records the returned ID from serInterval()
+		if(!interval){ 
 			interval = setInterval(this.draw.bind(this), 16.6667); // 60 fps
 			this.setState({
 				interval: interval,
@@ -221,27 +226,28 @@ class Match extends React.Component{
 	draw(){
 		if(this.state.stop == false){
 			var canvas = document.getElementById('challenge');
-			if(canvas==null) return;
 			if(canvas.height+1 != this.state.gameHeight){
-				this.canvasResize();
+				this.canvasResize(); // if the window height has been changed, we need to change the game state to prevent the game draw in unexcepted way
 			}
 			if(canvas != null && canvas.getContext){
 				const remainingTime = this.state.remainingTime;
 				const userMatches = this.state.userMatches;
 				var ctx = canvas.getContext('2d');
+				// clear the whole game canvas
 				ctx.clearRect(0,0, canvas.width, canvas.height);
 				// draw Line
 		        ctx.lineWidth = 15;
 		       	ctx.lineCap = 'round';
-		       	let waitRemoveMatches = new Array();
+		       	let waitRemoveMatches = new Array(); // records the matches that should be remov
 		       	for(let i = 0; i < userMatches.length; ++i){
 					if(userMatches[i][2] === true) // correct answer
 			       		ctx.strokeStyle = 'rgba(128, 200, 128, '+ userMatches[i][3] +')';
 			       	else if(userMatches[i][2] === false){
 			       		ctx.strokeStyle = 'rgba(255, 0, 0, '+ userMatches[i][3] +')';
-			       		userMatches[i][3] -= 0.03;
+			       		userMatches[i][3] -= 0.03; // fade out
 			       		if(userMatches[i][3] < 0){
-			       			waitRemoveMatches.push(userMatches[i]);
+			       			// if the value less than 0, means that the match line no needs to be drawn, remove from array to prevent memory overflow
+			       			waitRemoveMatches.push(userMatches[i]); // pushs into array, removes later
 			       		}
 			       	}
 	       			ctx.beginPath();
@@ -249,39 +255,31 @@ class Match extends React.Component{
     				ctx.lineTo(canvas.width - 20, this.state.buttonYPoints[userMatches[i][1]]);
     				ctx.stroke();
 		       	}
-
 		       	waitRemoveMatches.forEach((remove)=>{
 		       		userMatches.splice(remove);
 		       	});
 
-		       	/*this.state.userMatches.forEach((match) => {
-			       		if(match[2] == true) // correct answer
-				       		ctx.strokeStyle = 'rgba(0, 255, 0, '+ match[3] +')';
-				       	else
-				       		ctx.strokeStyle = 'rgba(255, 0, 0, '+ match[3] +')';
-		       			ctx.beginPath();
-		       			ctx.moveTo( 20, this.state.buttonYPoints[match[0]]);
-	    				ctx.lineTo( canvas.width - 20, this.state.buttonYPoints[match[1]]);
-	    				ctx.stroke();
-		       		}
-		       	)*/
+		       	// draw line end
 
 		       	// draw timer
 		        this.redrawTimer(60000, remainingTime);
 
 		        // draw rewards
 		        let rewards = this.state.rewards;
-		        let waitRemoveRewards = new Array();
+		        let waitRemoveRewards = new Array(); // records the rewards that should be remove
 		        for(let i = 0; i < rewards.length; ++i){
 		        	this.drawRewards(rewards[i][0], rewards[i][1], rewards[i][2]);
-		        	rewards[i][2]+=0.005;
+		        	rewards[i][2]+=0.005; // move down
 		        	if(rewards[i][2] > 1){
+		        		// if the value greater than 1, means that the rewards text already outside the boundary, remove from array to prevent memory overflow
 		        		waitRemoveRewards.push(rewards[i]);
 		        	}
 		        }
 		        waitRemoveRewards.forEach((remove)=>{
 		        	rewards.splice(remove, 1);
 		        });
+		        // draw rewards end
+
 		        if(this.state.correctCounter == 4)
 			        this.setState({
 			        	stop: true,
@@ -299,6 +297,7 @@ class Match extends React.Component{
 		}
 	}
 
+	// redraw the timer canvas
 	redrawTimer(totalTime, remainingTime){
 	var canvas = document.getElementById('timer');
 	if(canvas != null && canvas.getContext){
@@ -318,12 +317,15 @@ class Match extends React.Component{
 		}
 	}
 
+	// draw the rewards text on game canvas
 	drawRewards(rewardTime, xPos, yPos){
 		let canvas = document.getElementById('challenge');
 		let ctx = canvas.getContext('2d');
+		// draaw text border 
 	    ctx.strokeStyle = 'black';
 	    ctx.lineWidth = 4;
 	    ctx.strokeText(rewardTime, canvas.width*xPos, canvas.height*yPos);
+	    // draw text
 		ctx.font = '48px serif';
 		if(rewardTime.at(0)=='+')
 			ctx.fillStyle = 'limegreen'
@@ -334,9 +336,13 @@ class Match extends React.Component{
 	}
 
 	componentWillUnmount(){
-		clearInterval(this.state.interval);
+		clearInterval(this.state.interval); // prevents the canvas blink after user changes the language
 	}
 
+	//
+	// Sets and prepare data before the game start 
+	// warning: this function will be fired after user changes the language, and the state of Match object will be reset
+	// 
 	componentDidMount(){
 		const gameHeight = this.divElement.clientHeight;
 		const buttonYPoints = Array(4).fill(0);
@@ -356,6 +362,7 @@ class Match extends React.Component{
 		this.setFPS();
 	}
 	
+	// prepare the game data, like answer and prompts words
 	async prepareData(){
 		var words = await getData();
 		var shuffledArray = shuffleNewArray(words.length);
@@ -376,6 +383,7 @@ class Match extends React.Component{
 		});
 	}
 
+	// when window size being changed, reset the canvas parameter into state, preventing the canvas to be drawn in an unexcepted way
 	canvasResize(){
 		if(this.divElement != null){
 			const gameHeight = this.divElement.clientHeight;
@@ -393,6 +401,7 @@ class Match extends React.Component{
 		}
 	}
 
+	// render the DOM element
 	render(){
 		return(
 			<div className="Matching">
@@ -421,6 +430,8 @@ class Match extends React.Component{
 	}
 }
 
+// when window size changed, re-style the CSS style sheet.
+// this is not the same as Match.canvasResize()
 function canvasFitsParentDOM(){
 	const challenge = document.getElementById('challenge');
  	const timer = document.getElementById('timer');
@@ -436,13 +447,15 @@ function canvasFitsParentDOM(){
 	 	challenge.style.height = '100%';
 	 	timer.style.height = '100%';
 		setTimeout(300);
+		// the returned values of offsetWidth or offsetHeight are not integer, they are float
+		// maybe there will cause round problems, I'm not sure
 	 	challenge.width = challenge.offsetWidth - 1;
 	 	challenge.height = challenge.offsetHeight - 1;
 	 	timer.width = timer.offsetWidth - 1;
  	}
 }
 
-
+// get the lesson data from backend(express)
 async function getData() {
 	var lessonNumber = 0;
 	let param = new URLSearchParams(window.location.search);
@@ -499,6 +512,7 @@ function shuffleArray(length, oldArray){
   	return array;
 }
 
+// add event listener
 function main(){
 	if (document.readyState !== 'loading') { // prevents the Event 'DOMContentLoaded' not being fired
 		canvasFitsParentDOM();
