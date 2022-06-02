@@ -78,11 +78,11 @@ class Match extends React.Component{
 			remainingTime: 60000, // ms
 			stop: false, // if true, stop timer and draw all canvas
 			rewards: Array(), // reward text, proportion of X [0,1], proportion of Y [0,1]
+			interval: null,
 		};
 	}
 	
 	renderPrompt(i, word){
-		//console.log(word);
 		return (
 			<Square 
 			value={this.state.prompts[i]}
@@ -159,8 +159,6 @@ class Match extends React.Component{
 		let rewards = this.state.rewards;
 		let remainingTime = this.state.remainingTime;
 		const oldMatches = this.state.userMatches;
-		console.log("ANS ID:" + ans + "===" +this.state.answersOrder[ans]);
-		console.log("PRO ID:" + pro + "===" + this.state.promptsOrder[pro]);
 		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
 			// Correct~~~
 			rewards.push(['+5 sec', Math.random(), 0.5]);
@@ -211,13 +209,20 @@ class Match extends React.Component{
 	}
 
 	setFPS(){
-		setInterval(this.draw.bind(this), 16.6667); // 60 fps
+		let interval;
+		if(!interval){
+			interval = setInterval(this.draw.bind(this), 16.6667); // 60 fps
+			this.setState({
+				interval: interval,
+			});
+		}
 	}
 
 	draw(){
 		if(this.state.stop == false){
 			var canvas = document.getElementById('challenge');
-			if(canvas.height != this.state.gameHeight){
+			if(canvas==null) return;
+			if(canvas.height+1 != this.state.gameHeight){
 				this.canvasResize();
 			}
 			if(canvas != null && canvas.getContext){
@@ -236,8 +241,7 @@ class Match extends React.Component{
 			       		ctx.strokeStyle = 'rgba(255, 0, 0, '+ userMatches[i][3] +')';
 			       		userMatches[i][3] -= 0.03;
 			       		if(userMatches[i][3] < 0){
-			       			console.log("remove:" + i);
-			       			//waitRemoveMatches.push(userMatches[i]);
+			       			waitRemoveMatches.push(userMatches[i]);
 			       		}
 			       	}
 	       			ctx.beginPath();
@@ -317,8 +321,9 @@ class Match extends React.Component{
 	drawRewards(rewardTime, xPos, yPos){
 		let canvas = document.getElementById('challenge');
 		let ctx = canvas.getContext('2d');
-
-		ctx.strokeStyle = 'black';
+	    ctx.strokeStyle = 'black';
+	    ctx.lineWidth = 4;
+	    ctx.strokeText(rewardTime, canvas.width*xPos, canvas.height*yPos);
 		ctx.font = '48px serif';
 		if(rewardTime.at(0)=='+')
 			ctx.fillStyle = 'limegreen'
@@ -328,17 +333,19 @@ class Match extends React.Component{
 		ctx.fillText(rewardTime, canvas.width*xPos, canvas.height*yPos);
 	}
 
+	componentWillUnmount(){
+		clearInterval(this.state.interval);
+	}
+
 	componentDidMount(){
 		const gameHeight = this.divElement.clientHeight;
 		const buttonYPoints = Array(4).fill(0);
 		let point = 0;
-		console.log(gameHeight);
 		for(let i = 0; i < 8; ++i){
 			point += gameHeight / 8;
 			if(i % 2 == 0)
 				buttonYPoints[i/2] = point;
 		}
-		console.log(buttonYPoints);
 		this.setState({ 
 			gameHeight: gameHeight, 
 			buttonYPoints: buttonYPoints,
@@ -353,8 +360,6 @@ class Match extends React.Component{
 		var words = await getData();
 		var shuffledArray = shuffleNewArray(words.length);
 		var promptsShuffledArray = shuffleArray(4, shuffledArray);
-		console.log(shuffledArray);
-		console.log(promptsShuffledArray);
 		var prompts = new Array();
 		var answers = new Array();
 		for(let i = 0; i < 4; ++i){
@@ -437,20 +442,6 @@ function canvasFitsParentDOM(){
  	}
 }
 
-function drawLine(){
-	var canvas = document.getElementById('challenge');
-	if(canvas != null && canvas.getContext){
-		var ctx = canvas.getContext('2d');
-		ctx.fillStyle = 'rgb(200, 0, 0)';
-        ctx.fillRect(10, 10, 50, 50);
-
-        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
-        ctx.fillRect(30, 30, 50, 50);
-	} else {
-		// if not supported...
-		console.log("ERROR!!!");
-	}
-}
 
 async function getData() {
 	var lessonNumber = 0;
@@ -465,7 +456,6 @@ async function getData() {
 	} else {
 		lessonNumber = Math.floor(Math.random() * 6);
 	}
-	//console.log(lessonNumber+ ":" + lessons[lessonNumber]);
     await fetch('http://localhost:9000/cards/' + lessons[lessonNumber], {
         method:'GET',
         header: new Headers({'Content-Type': 'application/json'})})
