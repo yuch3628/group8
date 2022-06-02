@@ -167,7 +167,7 @@ class Match extends React.Component{
 			proDOM.disabled = true;
 			ansDOM.style.backgroundColor = '';
 			proDOM.style.backgroundColor = '';
-			let audio = new Audio(require('..\\audio\\mixkit-correct-answer-reward-952.wav'));
+			let audio = new Audio(require('../audio/mixkit-correct-answer-reward-952.wav'));
 			audio.play();
 			const userMatches = this.state.userMatches;
 			userMatches.push([pro, ans, true, 1.0]);
@@ -185,7 +185,7 @@ class Match extends React.Component{
 			ansDOM.style.backgroundColor = 'red';
 			proDOM.style.backgroundColor = 'red';
 			
-			let audio = new Audio(require('..\\audio\\mixkit-game-show-wrong-answer-buzz-950.wav'));
+			let audio = new Audio(require('../audio/mixkit-game-show-wrong-answer-buzz-950.wav'));
 			audio.play();
 
 			rewards.push(['-5 sec', Math.random(), 0.5]);
