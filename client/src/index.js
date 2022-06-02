@@ -26,7 +26,6 @@ const data = {
 // use react-intl to set locale language
 const Root = () =>{
     const [locale,setLocale] = useState(navigator.language);
-
     const language = locale.split(/[-_]/)[0];
     return(
         <IntlProvider locale={language} key={language} defaultLocale='en' messages={data[language]}>

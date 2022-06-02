@@ -18,8 +18,8 @@ import {FormattedMessage} from "react-intl";
 const NavBar= ({setLocale}) =>{
     const reloadFunc = (i) =>{
         window.location.href="http://localhost:3000/challenge?lesson="+i;
-        //window.location.reload(true);
     }
+    setLocale(getCookie("Language"));
     return (
         <Navbar bg="nav_bg" sticky="top" expand="lg">
             <Navbar.Brand>
@@ -88,15 +88,15 @@ const NavBar= ({setLocale}) =>{
                         <FormattedMessage id = "faq" defaultMessage="FAQ"/>
                     </Nav.Link>
                     <NavDropdown title={<span className="nav-dropdown"><FormattedMessage id = "language" defaultMessage="Language"/></span>} align={{ lg: 'end' }} className='ml-auto nav_context'>
-                        <NavDropdown.Item onClick={()=> setLocale('fr')}>
+                        <NavDropdown.Item onClick={()=> {setLocale('fr'); document.cookie = "Language=fr"}}>
                             <FormattedMessage id = "french" defaultMessage="French"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item onClick={()=> setLocale('en')}>
+                        <NavDropdown.Item onClick={()=> {setLocale('en'); document.cookie = "Language=en"}}>
                             <FormattedMessage id = "english" defaultMessage="English"/>
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item onClick={()=> setLocale('es')}>
+                        <NavDropdown.Item onClick={()=> {setLocale('es'); document.cookie = "Language=es"}}>
                             <FormattedMessage id = "spanish" defaultMessage="Spanish"/>
                         </NavDropdown.Item>
                     </NavDropdown>
@@ -104,5 +104,22 @@ const NavBar= ({setLocale}) =>{
             </Navbar.Collapse>
         </Navbar>
     );
+}
+
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 export default NavBar;

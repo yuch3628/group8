@@ -8,30 +8,26 @@
 import React from 'react';
 import "../style/Challenge.css"
 import {FormattedMessage} from "react-intl"
-import {useIntl, IntlProvider} from "react-intl";
-
-const Challenge = () =>{
-    return (
-        <div>
-            <h3>This is challenge page.</h3>   
-        </div>
-    );
-}
+import {IntlProvider} from "react-intl";
 
 // the buttons of challenge options
 function Square(props) {
-	const intl = useIntl(); // get the global language setting
-	if(props.word!=null && intl.locale != 'zh') // if the language setting is not traditional chinese
+	const language = getCookie("Language");
+	if(props.word!=null && language !== 'zh') // if the language setting is not traditional chinese
 		return(
 			<button 
 			className = {"square " + props.className}
 			onClick={props.onClick}
 			id = {props.id}
 			>
+
+			<IntlProvider locale={language} key={language} defaultLocale={language} >
+				<app setLocale={language} />
+        	</IntlProvider>
 			<FormattedMessage id={props.word} defaultMessage={props.word}/>
 			</button>
 		);
-	else if(props.word!=null && intl.locale == 'zh') // if the language setting is traditional chinese
+	else if(props.word!=null && language === 'zh') // if the language setting is traditional chinese
 		return(
 			<button 
 			className = {"square " + props.className}
@@ -53,10 +49,6 @@ function Square(props) {
 }
 
 class Timer extends React.Component{ // uses to render timer canvas
-	constructor(props){
-		super(props);
-	}
-
 	render(){
 		return(
 			<canvas className = "timer" id = 'timer' height='6px'/>
@@ -81,7 +73,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 			totalTime: 60000, // ms
 			remainingTime: 60000, // ms
 			stop: false, // if true, stop timer and draw all canvas
-			rewards: Array(), // reward text, proportion of X [0,1], proportion of Y [0,1]
+			rewards: [], // reward text, proportion of X [0,1], proportion of Y [0,1]
 			interval: null, // records the returned id of setInterval(), used to clearInterval() when firing ComponentWillUnmount()
 		};
 	}
@@ -134,7 +126,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 			s.style.backgroundColor = '';
 		}
 		square.style.backgroundColor = 'limegreen';
-		if(this.state.chooseAnswerId != "")
+		if(this.state.chooseAnswerId !== "")
 			this.checkAnswer();
 	}
 
@@ -150,7 +142,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 			s.style.backgroundColor = '';
 		}
 		square.style.backgroundColor = 'limegreen';
-		if(this.state.choosePromptId != "")
+		if(this.state.choosePromptId !== "")
 			this.checkAnswer();
 	}
 
@@ -163,9 +155,9 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		let rewards = this.state.rewards;
 		let remainingTime = this.state.remainingTime;
 		const oldMatches = this.state.userMatches;
-		if(this.state.promptsOrder[pro] == this.state.answersOrder[ans]){
+		if(this.state.promptsOrder[pro] === this.state.answersOrder[ans]){
 			// Correct~~~
-			rewards.push(['+5 sec', Math.random(), 0.5]); // push rewards text and its coordinates into array
+			rewards.push(['+5 sec', Math.random()*0.6+0.2, 0.5]); // push rewards text and its coordinates into array
 			oldMatches.push([pro, ans]);
 			ansDOM.disabled = true;
 			proDOM.disabled = true;
@@ -224,9 +216,9 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 	}
 
 	draw(){
-		if(this.state.stop == false){
+		if(this.state.stop === false){
 			var canvas = document.getElementById('challenge');
-			if(canvas.height+1 != this.state.gameHeight){
+			if(canvas.height+1 !== this.state.gameHeight){
 				this.canvasResize(); // if the window height has been changed, we need to change the game state to prevent the game draw in unexcepted way
 			}
 			if(canvas != null && canvas.getContext){
@@ -238,7 +230,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 				// draw Line
 		        ctx.lineWidth = 15;
 		       	ctx.lineCap = 'round';
-		       	let waitRemoveMatches = new Array(); // records the matches that should be removed
+		       	let waitRemoveMatches = []; // records the matches that should be removed
 		       	for(let i = 0; i < userMatches.length; ++i){
 					if(userMatches[i][2] === true) // correct answer
 			       		ctx.strokeStyle = 'rgba(128, 200, 128, '+ userMatches[i][3] +')';
@@ -267,7 +259,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 
 		        // draw rewards
 		        let rewards = this.state.rewards;
-		        let waitRemoveRewards = new Array(); // records the rewards that should be remove
+		        let waitRemoveRewards = []; // records the rewards that should be remove
 		        for(let i = 0; i < rewards.length; ++i){
 		        	this.drawRewards(rewards[i][0], rewards[i][1], rewards[i][2]);
 		        	rewards[i][2]+=0.005; // move down
@@ -281,7 +273,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		        });
 		        // draw rewards end
 
-		        if(this.state.correctCounter == 4)
+		        if(this.state.correctCounter === 4)
 			        this.setState({
 			        	stop: true,
 			        });
@@ -328,7 +320,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 	    ctx.strokeText(rewardTime, canvas.width*xPos, canvas.height*yPos);
 	    // draw text
 		ctx.font = '48px serif';
-		if(rewardTime.at(0)=='+')
+		if(rewardTime.at(0)==='+')
 			ctx.fillStyle = 'limegreen'
 		else
 			ctx.fillStyle = 'red'
@@ -350,7 +342,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		let point = 0;
 		for(let i = 0; i < 8; ++i){
 			point += gameHeight / 8;
-			if(i % 2 == 0)
+			if(i % 2 === 0)
 				buttonYPoints[i/2] = point;
 		}
 		this.setState({ 
@@ -361,6 +353,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		canvasFitsParentDOM();
 		this.prepareData();
 		this.setFPS();
+		startGuide();
 	}
 	
 	// prepare the game data, like answer and prompts words
@@ -368,8 +361,8 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		var words = await getData();
 		var shuffledArray = shuffleNewArray(words.length);
 		var promptsShuffledArray = shuffleArray(4, shuffledArray);
-		var prompts = new Array();
-		var answers = new Array();
+		var prompts = [];
+		var answers = [];
 		for(let i = 0; i < 4; ++i){
 			let btn = document.getElementById("answer"+i);
 			btn.textContent = words[shuffledArray[i]]['content'];
@@ -392,7 +385,7 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 			let point = 0;
 			for(let i = 0; i < 8; ++i){
 				point += gameHeight / 8;
-				if(i % 2 == 0)
+				if(i % 2 === 0)
 					buttonYPoints[i/2] = point;
 			}
 			this.setState({ 
@@ -407,28 +400,98 @@ class Match extends React.Component{ // the main challenge mechnism and DOM elem
 		return(
 			<div className="Matching">
 				<div className="game" ref={(divElement) => {this.divElement = divElement} }>
+					
 					<div className="div_prompts">
-					<div>{this.renderPrompt(0, this.state.prompts[0])}</div>
-					<div>{this.renderPrompt(1, this.state.prompts[1])}</div>
-					<div>{this.renderPrompt(2, this.state.prompts[2])}</div>
-					<div>{this.renderPrompt(3, this.state.prompts[3])}</div>
+					<div className='obtn'>
+						<div className='zzz' id="guide1">
+							<div className='guide' id="in_guide_1">press here to select prompt.<br />↙</div>
+						</div>
+						{this.renderPrompt(0, this.state.prompts[0])}
+					</div>
+					<div className='obtn'>{this.renderPrompt(1, this.state.prompts[1])}</div>
+					<div className='obtn'>{this.renderPrompt(2, this.state.prompts[2])}</div>
+					<div className='obtn'>{this.renderPrompt(3, this.state.prompts[3])}</div>
 					</div>
 					<div className="challenge">
 						<canvas className="challenge" id="challenge"/>
 					</div>
 					<div className="div_answers">
-					<div>{this.renderAnswer(0)}</div>
-					<div>{this.renderAnswer(1)}</div>
-					<div>{this.renderAnswer(2)}</div>
-					<div>{this.renderAnswer(3)}</div>
+					<div className='obtn'>
+						<div className='zzz' id="guide2">
+							<div className='guide' id="in_guide_2">press here to select answer.<br /><div>↓</div></div>
+						</div>
+						{this.renderAnswer(0)}</div>
+					<div className='obtn'>{this.renderAnswer(1)}</div>
+					<div className='obtn'>{this.renderAnswer(2)}</div>
+					<div className='obtn'>{this.renderAnswer(3)}</div>
 					</div>
 				</div>
 				<div className="progress_bar">
+					<div className='zzz' id="guide3">
+							<div className='guide' id="in_guide_3">Here you can see the remaining time.<br />
+								<div>↓</div><button id="finishButton">finish</button>
+							</div>
+						</div>
 					{this.renderTimer()}
 				</div>
 			</div>
 		);
 	}
+}
+
+function hideAllGuide(){
+	let guides = document.getElementsByClassName("zzz");
+		Array.prototype.forEach.call(guides, function(g){
+			g.style.display = "none";
+		});
+}
+
+function disableAllOption(){
+	let buttons = document.getElementsByClassName("square");
+	Array.prototype.forEach.call(buttons, function(s){
+		s.disabled = true;
+	});
+}
+
+// hide all guide
+function startGuide(){
+	let isFinished = getCookie("Guide");
+	if(isFinished == ""){
+		hideAllGuide();
+		disableAllOption();
+		// show guide step 1
+		const prompt0 = document.getElementById("prompt0");
+		const guide1 = document.getElementById("guide1");
+		prompt0.disabled = "";
+		guide1.style.display = "unset";
+		document.getElementById("prompt0").addEventListener("click", toGuide2);
+	} else{
+		hideAllGuide();	
+	}
+}
+
+function toGuide2(){
+	hideAllGuide();
+	disableAllOption();
+	const answer0 = document.getElementById("answer0");
+ 	const guide2 = document.getElementById("guide2");
+	answer0.disabled = "";
+ 	guide2.style.display = "unset";
+	document.getElementById("answer0").addEventListener("click", toGuide3);
+}
+
+function toGuide3(){
+	hideAllGuide();
+	disableAllOption();
+ 	const guide3 = document.getElementById("guide3");
+ 	guide3.style.display = "unset";
+	document.getElementById("finishButton").addEventListener("click", finishGuide);
+}
+
+function finishGuide(){
+	setTimeout(2000);
+	document.cookie = "Guide=done;";
+	window.location.href = window.location.href;
 }
 
 // when window size changed, re-style the CSS style sheet.
@@ -461,7 +524,7 @@ async function getData() {
 	var lessonNumber = 0;
 	let param = new URLSearchParams(window.location.search);
 	var lessons = ['Supermarket', 'Campus', 'Restaurant', 'Zoo', 'Breakfast', 'Softdrinks']
-	var Lesson = new Array();
+	var Lesson = [];
 	if(param.has('lesson')){
 		if(param.get('lesson') <= 0 || param.get('lesson') >= 7)
 			lessonNumber = Math.floor(Math.random() * 6);
@@ -489,7 +552,7 @@ async function getData() {
 
 // Fisher-Yates
 function shuffleNewArray(length){
-	var array = new Array();
+	var array = [];
 	for(let i = 0; i < length; ++i){
 		array.push(i);
 	}
@@ -502,6 +565,7 @@ function shuffleNewArray(length){
   	return array;
 }
 
+// Fisher-Yates
 function shuffleArray(length, oldArray){
 	const array = oldArray.slice(0, length);
 	for (let i = length - 1; i > 0; --i) {
@@ -512,6 +576,24 @@ function shuffleArray(length, oldArray){
   	}
   	return array;
 }
+
+// get cookie with name
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 
 // add event listener
 function main(){
