@@ -1,4 +1,4 @@
-## Lovely Mandarin
+# Lovely Mandarin
 
 ##### To help people learn Mandarin, we have lessons can learn vocabulary, also have challenge which can test the vocabulary user remember or not!
 
