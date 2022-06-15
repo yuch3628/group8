@@ -35,11 +35,11 @@
 
 1. please go to <b>client</b> dir and put this instruction:
 
-     ```npm install``` 
+     ```npm install -f``` 
 
 2. please go to <b>app</b> dir and put this instruction:
 
-     ```npm install``` 
+     ```npm install -f``` 
 
 ### How to activate the website
 
